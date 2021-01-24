@@ -24,4 +24,9 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/product/{slug}', 'Product\ProductController@detail');
 
-Route::post('/cart', 'Cart\CartController@addToCart');
+Route::post('/cart', 'Cart\CartController@insertData');
+Route::delete('/cart/{id}', 'Cart\CartController@destroy');
+
+Route::get('/checkout', 'Checkout\CheckoutController@index');
+
+Route::post('/delivery_address', 'DeliveryAddress\DeliveryAddressController@insertData');

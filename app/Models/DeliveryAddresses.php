@@ -71,11 +71,56 @@ class DeliveryAddresses extends Model
      *
      * @var boolean
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
     // Scopes...
 
     // Functions ...
 
     // Relations ...
+
+    public static function createOrUpdate($params, $method, $request)
+    {
+        dd($params);
+        if (!Session::get('_id')) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Silahkan Login Terlebih Dahulu!'
+            ]);
+        }
+
+        $params['user_id'] = Session::get('_id');
+
+        DB::beginTransaction();
+        $filename = null;
+
+        if (isset($params['_token']) && $params['_token']) {
+            unset($params['_token']);
+        }
+
+        if (isset($params['id']) && $params['id']) {
+            $id = $params['id'];
+            unset($params['id']);
+
+            $update = self::where('id', $id)->update($params);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Berhasil Diubah!'
+            ]);
+        }
+
+        $insert = self::create($params);
+// description
+// address
+// latitude
+// longitude
+// is_default
+// user_id
+        DB::commit();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Berhasil Disimpan'
+        ]);
+    }
 }

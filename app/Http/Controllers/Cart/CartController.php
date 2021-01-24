@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Models\Carts;
 use App\Models\MeatForSale;
 use App\Models\Users;
 use Illuminate\Http\Request;
@@ -11,6 +12,23 @@ use Session;
 
 class CartController extends Controller
 {
+    public function insertData(Request $request)
+    {
+        $params = $request->all();
+
+        return Carts::createOrUpdate($params, $request->method(), $request);
+    }
+
+    public function destroy($id, Request $request)
+    {
+        Carts::where('id', $id)->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil Dihapus'
+        ]);
+    }
+
     public function addToCart(Request $request)
     {
         $product = MeatForSale::find($request['food_id']);

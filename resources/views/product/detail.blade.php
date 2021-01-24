@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Customer')
+@section('title', 'Detail')
 
 @section('content')
 {{-- <div class="wrapper"> --}}

@@ -15,7 +15,7 @@
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/night-mode.css') }}" rel="stylesheet">
-
+  <link href="{{ asset('assets/css/step-wizard.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/OwlCarousel/assets/owl.carousel.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
@@ -131,6 +131,56 @@
               }
             }
           })
+        });
+
+        $(document).on('click', '#delete-cart', function(e){
+          event.preventDefault()
+          var id = $(this).data("id")
+
+          swal({
+                  title: 'Apakah kamu yakin untuk menghapus?',
+                  text: 'Anda dapat memilih product kembali',
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#800000',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'Batal',
+                  confirmButtonText: 'Hapus'
+              }, function(){
+                $.ajax({
+                  type: 'DELETE',
+                  url: BASE_URL+'/cart/'+id,
+                  data: {'_token': '{{ csrf_token() }}'},
+                  dataType: 'json',
+                  beforeSend: function() {
+                    
+                  },
+                  success: function(msg) {
+                    if(msg.status == 'success'){
+                        setTimeout(function() {
+                          
+                            swal({
+                                title: "sukses",
+                                text: msg.message,
+                                type:"success",
+                                html: true
+                            }, function() {
+                                window.location.reload();
+                            });
+                        }, 500);
+                    } else {
+                        swal({
+                            title: "Gagal",
+                            text: msg.message,
+                            showConfirmButton: true,
+                            confirmButtonColor: '#0760ef',
+                            type:"error",
+                            html: true
+                        });
+                    }
+                  }
+                })
+              })
         });
       </script>
       @yield('additionalScript')

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use iPaymu\iPaymu;
 
 /**
  * @property int        $user_id
@@ -81,4 +82,99 @@ class Orders extends Model
     // Functions ...
 
     // Relations ...
+
+    public static function payVa($params)
+    {
+        $apiKey = 'E6D0A4F7-ACEB-42DF-91AA-0DA4712444E8';
+        $va = '1179002138685501';
+        $production = false;
+
+        $ipaymu = new iPaymu($apiKey, $va, $production);
+
+        $ipaymu->setURL([
+            'ureturn' => 'http://128.199.147.203/f7-soccer-field/public/member/dashboard',
+            'unotify' => 'http://128.199.147.203/f7-soccer-field/public/api/ipaymu_callback',
+            'ucancel' => 'http://128.199.147.203/f7-soccer-field/public/cancel',
+        ]);
+
+        $ipaymu->setBuyer([
+            'name' => $params['name'],
+            'phone' => $params['phone'],
+            'email' => $params['email'],
+        ]);
+
+        $ipaymu->addCart([
+            'product' => $params['field_name'],
+            'quantity' => 1,
+            'price' => $params['total'],
+            'description' => $params['description'],
+            'weight' => 1,
+        ]);
+
+        $ipaymu->setCOD([
+            'pickupArea' => "76111",
+            'pickupAddress' => "Denpasar",
+            'deliveryArea' => "76111",
+            'deliveryAddress' => "Denpasar",
+        ]);
+        
+        $pay = $ipaymu->redirectPayment();
+
+        return $pay;
+    }
+
+    public static function createOrUpdate($params, $method, $request)
+    {
+        $product = MeatForSale::find($params['food_id']);
+
+        if(!$product) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unknown Product!'
+            ]);
+        }
+
+        if ($params['quantity'] < 1) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Isikan Quantity!'
+            ]);
+        }
+
+        if (!Session::get('_id')) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Silahkan Login Terlebih Dahulu!'
+            ]);
+        }
+
+        $params['user_id'] = Session::get('_id');
+
+        DB::beginTransaction();
+        $filename = null;
+
+        if (isset($params['_token']) && $params['_token']) {
+            unset($params['_token']);
+        }
+
+        if (isset($params['id']) && $params['id']) {
+            $id = $params['id'];
+            unset($params['id']);
+
+            $update = self::where('id', $id)->update($params);
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Berhasil Diubah!'
+            ]);
+        }
+
+        $insert = self::create($params);
+
+        DB::commit();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data Berhasil Disimpan'
+        ]);
+    }
 }
