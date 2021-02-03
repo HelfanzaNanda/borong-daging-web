@@ -34,3 +34,4 @@ Route::get('/checkout', 'Checkout\CheckoutController@index');
 Route::post('/delivery_address', 'DeliveryAddress\DeliveryAddressController@insertData');
 
 Route::post('/order', 'Order\OrderController@insertData');
+Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');

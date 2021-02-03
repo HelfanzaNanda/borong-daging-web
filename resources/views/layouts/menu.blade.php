@@ -61,7 +61,7 @@
             <div class="ui left icon input swdh10">
                 <form method="post" action="{{ route('product.search') }}" class="ui left icon input swdh10">
                     @csrf
-                    <input class="prompt srch10" type="text" name="search" placeholder="Search for products..">
+                    <input class="prompt srch10" type="text" name="search" placeholder="Search for products.." value="{{ old('search') }}">
                     <button type="submit" style="background-color: red; outline: none; border: none; color: white; padding: 0 5px">
                         <i class='uil uil-search-alt icon icon1'></i>
                     </button>

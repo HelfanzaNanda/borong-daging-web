@@ -11,6 +11,7 @@ use App\Models\Payments;
 use App\Models\Restaurants;
 use App\Models\Users;
 use DB;
+use Faker\Provider\ar_SA\Payment;
 use Illuminate\Database\Eloquent\Model;
 use Session;
 use iPaymu\iPaymu;
@@ -59,7 +60,7 @@ class Orders extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -127,7 +128,7 @@ class Orders extends Model
             'deliveryArea' => "76111",
             'deliveryAddress' => "Denpasar",
         ]);
-        
+
         $pay = $ipaymu->redirectPayment();
 
         return $pay;
@@ -236,4 +237,74 @@ class Orders extends Model
             'message' => 'Booking Gagal'
         ]);
     }
+
+
+    public static function myOrders()
+    {
+        $userId = Session::get('_id');
+        if (!$userId) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Silahkan Login Terlebih Dahulu!'
+            ]);
+        }
+
+        $orders = Orders::where('user_id', $userId)->get();
+        $result = [];
+        foreach ($orders as $order) {
+            switch ($order->order_status->status){
+                case 'Ready':
+                    $order_status = 1;
+                break;
+                case 'Preparing':
+                    $order_status = 2;
+                break;
+                case 'On the Way':
+                    $order_status = 3;
+                break;
+                case 'Delivered':
+                    $order_status = 4;
+                break;
+                case 'Order Received':
+                    $order_status = 5;
+                break;
+            }
+            $item = [
+                'phone' => $order->user->phone ?? '-',
+                'hint' => $order->hint ?? '-',
+                'address' => $order->delivery_address ? $order->delivery_address->address : '-',
+                'count_items' => $order->food_orders->count(),
+                'food_items' => $order->food_orders()->get()->implode('food.name', ', '),
+                'sub_total' => $order->payment->price,
+                'delivery_fee' => $order->delivery_fee,
+                'total' => $order->payment->price + $order->delivery_fee,
+                'order_status' => $order_status
+                //'order_status' => $order->order_status->status
+            ];
+            array_push($result, $item);
+        };
+
+        return $result;
+    }
+
+    public function delivery_address()
+    {
+        return $this->belongsTo(DeliveryAddresses::class);
+    }
+
+    public function food_orders()
+    {
+        return $this->hasMany(FoodOrders::class, 'order_id', 'id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payments::class);
+    }
+
+    public function order_status()
+    {
+        return $this->belongsTo(OrderStatuses::class);
+    }
+
 }
