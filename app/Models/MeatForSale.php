@@ -49,7 +49,7 @@ class MeatForSale extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -87,6 +87,11 @@ class MeatForSale extends Model
     public function getMediaAttribute()
     {
         $media = Media::where('model_id', $this->id)->where('model_type', 'App\\Models\\MeatForSale')->first();
-        return $media; 
+        return $media;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
     }
 }

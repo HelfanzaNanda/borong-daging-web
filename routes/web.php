@@ -22,7 +22,9 @@ Route::post('/login', 'Auth\LoginController@memberLogin');
 Route::post('/register', 'Auth\LoginController@memberRegister');
 Route::get('/logout', 'Auth\LoginController@logout');
 
+Route::post('/product/search', 'Product\ProductController@search')->name('product.search');
 Route::get('/product/{slug}', 'Product\ProductController@detail');
+Route::get('/category/{slug}', 'Product\ProductController@productsByCategory');
 
 Route::post('/cart', 'Cart\CartController@insertData');
 Route::delete('/cart/{id}', 'Cart\CartController@destroy');

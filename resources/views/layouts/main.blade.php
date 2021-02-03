@@ -64,7 +64,7 @@
             processData: false,
             dataType: 'json',
             beforeSend: function() {
-              
+
             },
             success: function(msg) {
               if(msg.status == 'success'){
@@ -105,7 +105,7 @@
             processData: false,
             dataType: 'json',
             beforeSend: function() {
-              
+
             },
             success: function(msg) {
               if(msg.status == 'success'){
@@ -153,12 +153,12 @@
                   data: {'_token': '{{ csrf_token() }}'},
                   dataType: 'json',
                   beforeSend: function() {
-                    
+
                   },
                   success: function(msg) {
                     if(msg.status == 'success'){
                         setTimeout(function() {
-                          
+
                             swal({
                                 title: "sukses",
                                 text: msg.message,
