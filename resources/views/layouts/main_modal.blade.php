@@ -233,7 +233,7 @@
       <span>Rp {{number_format($total_price + 10000)}}</span>
     </div>
     <div class="checkout-cart">
-      <a href="#" class="promo-code">Have a promocode?</a>
+      {{-- <a href="#" class="promo-code">Have a promocode?</a> --}}
       <a href="{{url('/')}}/checkout" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
     </div>
   </div>

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DB;
+use Session;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -81,7 +83,6 @@ class DeliveryAddresses extends Model
 
     public static function createOrUpdate($params, $method, $request)
     {
-        dd($params);
         if (!Session::get('_id')) {
             return response()->json([
                 'status' => 'error',
@@ -110,13 +111,12 @@ class DeliveryAddresses extends Model
             ]);
         }
 
-        $insert = self::create($params);
-// description
-// address
-// latitude
-// longitude
-// is_default
-// user_id
+        if (self::where('user_id', $params['user_id'])->count() > 0) {
+            $update = self::where('user_id', $params['user_id'])->update($params);
+        } else {
+            $insert = self::create($params);
+        }
+
         DB::commit();
         return response()->json([
             'status' => 'success',

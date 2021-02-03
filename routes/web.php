@@ -30,3 +30,5 @@ Route::delete('/cart/{id}', 'Cart\CartController@destroy');
 Route::get('/checkout', 'Checkout\CheckoutController@index');
 
 Route::post('/delivery_address', 'DeliveryAddress\DeliveryAddressController@insertData');
+
+Route::post('/order', 'Order\OrderController@insertData');

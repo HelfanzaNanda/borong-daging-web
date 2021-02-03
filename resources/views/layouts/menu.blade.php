@@ -1,14 +1,14 @@
 <div class="sub-header">
-    <div class="ui dropdown">
+{{--     <div class="ui dropdown">
       <a href="#" class="category_drop hover-btn" data-toggle="modal" data-target="#category_model" title="Categories"><i class="uil uil-apps"></i><span class="cate__icon">Select Category</span></a>
-    </div>
+    </div> --}}
     <nav class="navbar navbar-expand-lg navbar-light py-3">
       <div class="container-fluid">
         <button class="navbar-toggler menu_toggle_btn" type="button" data-target="#navbarSupportedContent"><i class="uil uil-bars"></i></button>
         <div class="collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end bg-dark1 p-3 p-lg-0 mt1-5 mt-lg-0 mobileMenu" id="navbarSupportedContent">
           <ul class="navbar-nav main_nav align-self-stretch">
             <li class="nav-item"><a href="{{url('/')}}" class="nav-link active" title="Home">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link new_item" title="New Products">New Products</a></li>
+{{--             <li class="nav-item"><a href="#" class="nav-link new_item" title="New Products">New Products</a></li>
             <li class="nav-item"><a href="#" class="nav-link" title="Featured Products">Featured Products</a></li>
             <li class="nav-item">
               <div class="ui icon top left dropdown nav__menu">
@@ -42,7 +42,7 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link" title="Contact">Contact Us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" title="Contact">Contact Us</a></li> --}}
           </ul>
         </div>
       </div>

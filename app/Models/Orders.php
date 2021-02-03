@@ -2,7 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Carts;
+use App\Models\DeliveryAddresses;
+use App\Models\Drivers;
+use App\Models\FoodOrders;
+use App\Models\Foods;
+use App\Models\Payments;
+use App\Models\Restaurants;
+use App\Models\Users;
+use DB;
 use Illuminate\Database\Eloquent\Model;
+use Session;
 use iPaymu\iPaymu;
 
 /**
@@ -92,9 +102,9 @@ class Orders extends Model
         $ipaymu = new iPaymu($apiKey, $va, $production);
 
         $ipaymu->setURL([
-            'ureturn' => 'http://128.199.147.203/f7-soccer-field/public/member/dashboard',
-            'unotify' => 'http://128.199.147.203/f7-soccer-field/public/api/ipaymu_callback',
-            'ucancel' => 'http://128.199.147.203/f7-soccer-field/public/cancel',
+            'ureturn' => 'http://128.199.147.203/borong-daging/public/member/dashboard',
+            'unotify' => 'http://128.199.147.203/borong-daging/public/api/ipaymu_callback',
+            'ucancel' => 'http://128.199.147.203/borong-daging/public/cancel',
         ]);
 
         $ipaymu->setBuyer([
@@ -125,22 +135,6 @@ class Orders extends Model
 
     public static function createOrUpdate($params, $method, $request)
     {
-        $product = MeatForSale::find($params['food_id']);
-
-        if(!$product) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unknown Product!'
-            ]);
-        }
-
-        if ($params['quantity'] < 1) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Isikan Quantity!'
-            ]);
-        }
-
         if (!Session::get('_id')) {
             return response()->json([
                 'status' => 'error',
@@ -168,13 +162,78 @@ class Orders extends Model
                 'message' => 'Data Berhasil Diubah!'
             ]);
         }
+        $total_price = 0;
+        $total_delivery_price = 10000;
 
-        $insert = self::create($params);
+        $carts = Carts::where('user_id', $params['user_id'])->get();
 
-        DB::commit();
+        foreach($carts as $cart) {
+            $total_price = $total_price + $cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100);
+        }
+
+        $insert_payment = Payments::create([
+            'price' => $total_price + $total_delivery_price,
+            'description' => 'Pemesanan Daging',
+            'user_id' => Session::get('_id'),
+            'status' => 'Awaiting Payment',
+            'method' => $params['payment_method'],
+        ]);
+
+        $insert_order = self::create([
+            'user_id' => Session::get('_id'),
+            'order_status_id' => 1,
+            'tax' => 0,
+            'delivery_fee' => $total_delivery_price,
+            'hint' => 'Dikirim Tanggal '.$params['hint'].' Jam '.$params['deliver_time'],
+            'active' => 1,
+            'driver_id' => Drivers::where('available', 1)->first()->value('user_id'),
+            // 'delivery_address_id' => DeliveryAddresses::where('user_id', Session::get('_id'))->first()->value('id'),
+            'delivery_address_id' => 16,
+            'payment_id' => $insert_payment->id,
+        ]);
+
+        $get_restaurant = Restaurants::get()->random(1)->all()[0]->id;
+
+        foreach($carts as $cart_for_stock) {
+            $foods = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])->value('name'))->where('restaurant_id', $get_restaurant)->first();
+
+            $decrease_stock = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])->value('name'))->where('restaurant_id', $get_restaurant)->decrement('weight', $cart_for_stock['quantity']);
+
+            FoodOrders::create([
+                'price' => $cart_for_stock['meat_for_sale']['discount_price'],
+                'quantity' => $cart_for_stock['quantity'],
+                'food_id' => $foods['id'],
+                'order_id' => $insert_order->id
+            ]);
+        }
+
+        $user = Users::where('id', Session::get('_id'))->first();
+
+        $pay['name'] = $user['name'];
+        $pay['phone'] = '082138685500';
+        $pay['email'] = $user['email'];
+        $pay['field_name'] = 'Daging';
+        $pay['total'] = $total_price + $total_delivery_price;
+        $pay['description'] = 'Penjualan Daging';
+
+        $send_payment = self::payVa($pay);
+
+        if (isset($send_payment['Data']['Url'])) {
+            Carts::where('user_id', Session::get('_user_id'))->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'url' => $send_payment['Data']['Url'],
+                'message' => 'Anda akan di arahkan ke halaman pembayaran'
+            ]);
+        }
+
+        DB::rollback();
         return response()->json([
-            'status' => 'success',
-            'message' => 'Data Berhasil Disimpan'
+            'status' => 'error',
+            'message' => 'Booking Gagal'
         ]);
     }
 }

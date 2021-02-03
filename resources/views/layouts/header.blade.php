@@ -21,13 +21,13 @@
           <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>1800-000-000</a>
         </li>
         <li>
-          <a href="offers.html" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
+          <a href="#" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
         </li>
         <li>
-          <a href="faq.html" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
+          <a href="#" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
         </li>
         <li>
-          <a href="dashboard_my_wishlist.html" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a>
+          <a href="#" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a>
         </li>
         @if(!Session::get('_login'))
         <li>
@@ -49,13 +49,13 @@
               </span>
               </a>
             </div>
-            <a href="dashboard_overview.html" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a>
+            {{-- <a href="dashboard_overview.html" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a> --}}
             <a href="dashboard_my_orders.html" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
-            <a href="dashboard_my_wishlist.html" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
+            {{-- <a href="dashboard_my_wishlist.html" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
             <a href="dashboard_my_wallet.html" class="item channel_item"><i class="uil uil-usd-circle icon__1"></i>My Wallet</a>
             <a href="dashboard_my_addresses.html" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
             <a href="offers.html" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
-            <a href="faq.html" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
+            <a href="faq.html" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a> --}}
             <a href="{{url('/logout')}}" class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
           </div>
         </li>

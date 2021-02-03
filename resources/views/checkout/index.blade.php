@@ -23,13 +23,13 @@
           <div class="col-lg-8 col-md-7">
              <div id="checkout_wizard" class="checkout accordion left-chck145">
                 <div class="checkout-step">
-                   <div class="checkout-card" id="headingTwo">
-                      <span class="checkout-step-number">2</span>
+                   <div class="checkout-card" id="headingOne">
+                      <span class="checkout-step-number">1</span>
                       <h4 class="checkout-step-title">
-                         <button class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Delivery Address</button>
+                         <button class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"> Delivery Address</button>
                       </h4>
                    </div>
-                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#checkout_wizard">
+                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#checkout_wizard">
                       <div class="checkout-step-body">
                          <div class="checout-address-step">
                             <div class="row">
@@ -39,15 +39,15 @@
                                         <div class="product-radio">
                                            <ul class="product-now">
                                               <li>
-                                                 <input type="radio" id="ad1" name="address_description" checked value="Home">
+                                                 <input type="radio" id="ad1" name="address_description" {{$delivery_address['description'] == 'Home' ? 'checked' : ''}} value="Home">
                                                  <label for="ad1">Home</label>
                                               </li>
                                               <li>
-                                                 <input type="radio" id="ad2" name="address_description" value="Office">
+                                                 <input type="radio" id="ad2" name="address_description" {{$delivery_address['description'] == 'Office' ? 'checked' : ''}} value="Office">
                                                  <label for="ad2">Office</label>
                                               </li>
                                               <li>
-                                                 <input type="radio" id="ad3" name="address_description" value="Other">
+                                                 <input type="radio" id="ad3" name="address_description" {{$delivery_address['description'] == 'Other' ? 'checked' : ''}} value="Other">
                                                  <label for="ad3">Other</label>
                                               </li>
                                            </ul>
@@ -76,7 +76,7 @@
                                            <div class="col-lg-12 col-md-12">
                                               <div class="form-group">
                                                  <label class="control-label">Alamat*</label>
-                                                 <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md">
+                                                 <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{$delivery_address['address']}}">
                                               </div>
                                            </div>
 {{--                                            <div class="col-lg-6 col-md-12">
@@ -89,7 +89,7 @@
                                               <div class="form-group">
                                                  <div class="address-btns">
                                                     <button type="button" class="save-btn14 hover-btn" id="address-save">Save</button>
-                                                    <a class="collapsed ml-auto next-btn16 hover-btn" role="button" data-toggle="collapse" data-parent="#checkout_wizard" href="#collapseThree"> Next </a>
+                                                    <a class="collapsed ml-auto next-btn16 hover-btn" role="button" data-toggle="collapse" data-parent="#checkout_wizard" href="#collapseTwo"> Next </a>
                                                  </div>
                                               </div>
                                            </div>
@@ -103,13 +103,13 @@
                    </div>
                 </div>
                 <div class="checkout-step">
-                   <div class="checkout-card" id="headingThree">
-                      <span class="checkout-step-number">3</span>
+                   <div class="checkout-card" id="headingTwo">
+                      <span class="checkout-step-number">2</span>
                       <h4 class="checkout-step-title">
-                         <button class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Delivery Time & Date </button>
+                         <button class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Delivery Time & Date </button>
                       </h4>
                    </div>
-                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#checkout_wizard">
+                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#checkout_wizard">
                       <div class="checkout-step-body">
                          <div class="row">
                             <div class="col-md-12">
@@ -119,52 +119,24 @@
                                      <div class="owl-carousel date-slider owl-theme">
                                         <div class="item">
                                            <div class="date-now">
-                                              <input type="radio" id="dd1" name="address1" checked="">
+                                              <input type="radio" id="dd1" name="hint" value="{{date('d M Y')}}">
                                               <label for="dd1">Today</label>
                                            </div>
                                         </div>
                                         <div class="item">
                                            <div class="date-now">
-                                              <input type="radio" id="dd2" name="address1">
+                                              <input type="radio" id="dd2" name="hint" value="{{date('d M Y', strtotime("+1 day"))}}">
                                               <label for="dd2">Tomorrow</label>
                                            </div>
                                         </div>
+                                        @for($i=2;$i<7;$i++)
                                         <div class="item">
                                            <div class="date-now">
-                                              <input type="radio" id="dd3" name="address1">
-                                              <label for="dd3">10 May 2020</label>
+                                              <input type="radio" id="dd{{$i+1}}" name="hint" value="{{date('d M Y', strtotime("+".$i." day"))}}">
+                                              <label for="dd{{$i+1}}">{{date('d M Y', strtotime("+".$i." day"))}}</label>
                                            </div>
                                         </div>
-                                        <div class="item">
-                                           <div class="date-now">
-                                              <input type="radio" id="dd4" name="address1">
-                                              <label for="dd4">11 May 2020</label>
-                                           </div>
-                                        </div>
-                                        <div class="item">
-                                           <div class="date-now">
-                                              <input type="radio" id="dd5" name="address1">
-                                              <label for="dd5">12 May 2020</label>
-                                           </div>
-                                        </div>
-                                        <div class="item">
-                                           <div class="date-now">
-                                              <input type="radio" id="dd6" name="address1">
-                                              <label for="dd6">13 May 2020</label>
-                                           </div>
-                                        </div>
-                                        <div class="item">
-                                           <div class="date-now">
-                                              <input type="radio" id="dd7" name="address1">
-                                              <label for="dd7">14 May 2020</label>
-                                           </div>
-                                        </div>
-                                        <div class="item">
-                                           <div class="date-now">
-                                              <input type="radio" id="dd8" name="address1">
-                                              <label for="dd8">15 May 2020</label>
-                                           </div>
-                                        </div>
+                                        @endfor
                                      </div>
                                   </div>
                                   <div class="time-radio">
@@ -172,32 +144,32 @@
                                         <div class="grouped fields">
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="fruit" checked="" tabindex="0" class="hidden">
-                                                 <label>8.00AM - 10.00AM</label>
+                                                 <input type="radio" name="deliver_time" checked="" tabindex="0" class="hidden" value="08.00 - 10.00">
+                                                 <label>08.00 - 10.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                 <label>10.00AM - 12.00PM</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="10.00 - 12.00">
+                                                 <label>10.00 - 12.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                 <label>12.00PM - 2.00PM</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="12.00 - 14.00">
+                                                 <label>12.00 - 14.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                 <label>2.00PM - 4.00PM</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="14.00 - 16.00">
+                                                 <label>14.00 - 16.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="fruit" tabindex="0" class="hidden">
-                                                 <label>4.00PM - 6.00PM</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="16.00 - 18.00">
+                                                 <label>16.00 - 18.00</label>
                                               </div>
                                            </div>
                                         </div>
@@ -206,18 +178,18 @@
                                </div>
                             </div>
                          </div>
-                         <a class="collapsed next-btn16 hover-btn" role="button" data-toggle="collapse" href="#collapseFour"> Proccess to payment </a>
+                         <a class="collapsed next-btn16 hover-btn" role="button" data-toggle="collapse" href="#collapseThree"> Proccess to payment </a>
                       </div>
                    </div>
                 </div>
                 <div class="checkout-step">
-                   <div class="checkout-card" id="headingFour">
-                      <span class="checkout-step-number">4</span>
+                   <div class="checkout-card" id="headingThree">
+                      <span class="checkout-step-number">3</span>
                       <h4 class="checkout-step-title">
-                         <button class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Payment</button>
+                         <button class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Payment</button>
                       </h4>
                    </div>
-                   <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#checkout_wizard">
+                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#checkout_wizard">
                       <div class="checkout-step-body">
                          <div class="payment_method-checkout">
                             <div class="row">
@@ -232,8 +204,8 @@
                                         </li>
                                         <li>
                                            <div class="radio-item_1">
-                                              <input id="card1" value="card" name="paymentmethod" type="radio" data-minimum="50.0">
-                                              <label for="card1" class="radio-label_1">Credit / Debit Card</label>
+                                              <input id="card1" value="ipaymu" name="paymentmethod" type="radio" data-minimum="50.0">
+                                              <label for="card1" class="radio-label_1">Virtual Account/QRIS</label>
                                            </div>
                                         </li>
                                      </ul>
@@ -243,7 +215,7 @@
                                         <div class="col-lg-12">
                                            <div class="pymnt_title">
                                               <h4>Cash on Delivery</h4>
-                                              <p>Cash on Delivery will not be available if your order value exceeds $10.</p>
+                                              {{-- <p>Cash on Delivery will not be available if your order value exceeds $10.</p> --}}
                                            </div>
                                         </div>
                                      </div>
@@ -252,72 +224,12 @@
                                      <div class="row">
                                         <div class="col-lg-12">
                                            <div class="pymnt_title mb-4">
-                                              <h4>Credit / Debit Card</h4>
-                                           </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                           <div class="form-group mt-1">
-                                              <label class="control-label">Holder Name*</label>
-                                              <div class="ui search focus">
-                                                 <div class="ui left icon input swdh11 swdh19">
-                                                    <input class="prompt srch_explore" type="text" name="holdername" value="" id="holder[name]" required="" maxlength="64" placeholder="Holder Name">
-                                                 </div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                           <div class="form-group mt-1">
-                                              <label class="control-label">Card Number*</label>
-                                              <div class="ui search focus">
-                                                 <div class="ui left icon input swdh11 swdh19">
-                                                    <input class="prompt srch_explore" type="text" name="cardnumber" value="" id="card[number]" required="" maxlength="64" placeholder="Card Number">
-                                                 </div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                           <div class="form-group mt-1">
-                                              <label class="control-label">Expiration Month*</label>
-                                              <select class="ui fluid search dropdown form-dropdown" name="card[expire-month]">
-                                                 <option value="">Month</option>
-                                                 <option value="1">January</option>
-                                                 <option value="2">February</option>
-                                                 <option value="3">March</option>
-                                                 <option value="4">April</option>
-                                                 <option value="5">May</option>
-                                                 <option value="6">June</option>
-                                                 <option value="7">July</option>
-                                                 <option value="8">August</option>
-                                                 <option value="9">September</option>
-                                                 <option value="10">October</option>
-                                                 <option value="11">November</option>
-                                                 <option value="12">December</option>
-                                              </select>
-                                           </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                           <div class="form-group mt-1">
-                                              <label class="control-label">Expiration Year*</label>
-                                              <div class="ui search focus">
-                                                 <div class="ui left icon input swdh11 swdh19">
-                                                    <input class="prompt srch_explore" type="text" name="card[expire-year]" maxlength="4" placeholder="Year">
-                                                 </div>
-                                              </div>
-                                           </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                           <div class="form-group mt-1">
-                                              <label class="control-label">CVV*</label>
-                                              <div class="ui search focus">
-                                                 <div class="ui left icon input swdh11 swdh19">
-                                                    <input class="prompt srch_explore" name="card[cvc]" maxlength="3" placeholder="CVV">
-                                                 </div>
-                                              </div>
+                                              <h4>Virtual Account/QRIS</h4>
                                            </div>
                                         </div>
                                      </div>
                                   </div>
-                                  <a href="#" class="next-btn16 hover-btn">Place Order</a>
+                                  <button type="button" class="next-btn16 hover-btn" id="place-order">Place Order</button>
                                </div>
                             </div>
                          </div>
@@ -380,6 +292,38 @@
 
 @section('additionalScript')
 <script type="text/javascript">
+   $(document).on('click', '#place-order', function(e){
+      	$.ajax({
+          url: BASE_URL+'/order',
+          type: 'POST',
+          data: {'hint': $("input[name='hint']:checked").val(), 'deliver_time': $("input[name='deliver_time']:checked").val(), 'payment_method': $("input[name='paymentmethod']:checked").val(), '_token': '{{ csrf_token() }}'},
+          dataType: 'json',
+          success: function( data ) {
+            if(data.status == 'success'){
+             setTimeout(function() {
+               swal({
+                   title: "Sukses",
+                   text: data.message,
+                   type:"success",
+                   html: true
+               }, function() {
+                 window.location.href = data.url;
+               });
+             }, 500);
+            } else {
+             swal({
+               title: "Gagal",
+               text: data.message,
+               showConfirmButton: true,
+               confirmButtonColor: '#0760ef',
+               type:"error",
+               html: true
+             });
+            }
+          }       
+      	});
+   });
+
    $(document).on('click', '#address-save', function(e){
    		var addressDescription = $("input[name='address_description']:checked").val();
 
