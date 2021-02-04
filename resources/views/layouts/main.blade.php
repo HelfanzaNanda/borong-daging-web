@@ -29,7 +29,7 @@
   <body>
     @include('layouts.main_modal')
     @yield('modal')
-    <header class="header clearfix">
+    <header class="clearfix header">
       @include('layouts.header')
     </header>
     <div class="wrapper">
@@ -43,7 +43,7 @@
       <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
       <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
       <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.js') }}"></script>
-      <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script>
+      {{-- <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script> --}}
       <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
       <script src="{{ asset('assets/js/custom.js') }}"></script>
       <script src="{{ asset('assets/js/offset_overlay.js') }}"></script>

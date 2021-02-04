@@ -44,7 +44,7 @@ class CartController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Isikan Quantity!'
-            ]);   
+            ]);
         }
 
         $cart = session()->get('cart');
@@ -82,12 +82,23 @@ class CartController extends Controller
             "price" => $product->price,
             "photo" => $product->photo
         ];
-        
+
         session()->put('cart', $cart);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Product added to cart successfully!'
+        ]);
+    }
+
+    public function checkCart($foodId)
+    {
+        $userId = Session::get('_id');
+        $cart = Carts::where('user_id', $userId)->where('food_id', $foodId)->first();
+        $message = $cart ? "yes" : "no";
+        return json_encode([
+            'status' => $cart ? true : false,
+            'message' => $message
         ]);
     }
 }

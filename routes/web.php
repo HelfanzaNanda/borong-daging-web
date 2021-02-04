@@ -27,6 +27,7 @@ Route::get('/product/{slug}', 'Product\ProductController@detail');
 Route::get('/category/{slug}', 'Product\ProductController@productsByCategory');
 
 Route::post('/cart', 'Cart\CartController@insertData');
+Route::get('/check-cart/{foodId}', 'Cart\CartController@checkCart');
 Route::delete('/cart/{id}', 'Cart\CartController@destroy');
 
 Route::get('/checkout', 'Checkout\CheckoutController@index');
@@ -35,3 +36,5 @@ Route::post('/delivery_address', 'DeliveryAddress\DeliveryAddressController@inse
 
 Route::post('/order', 'Order\OrderController@insertData');
 Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');
+
+Route::get('faq', 'Faq\FaqController@index')->name('faq');
