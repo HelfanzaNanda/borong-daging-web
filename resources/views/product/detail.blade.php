@@ -98,7 +98,9 @@
                                  </li>
                               </ul>
                               <ul class="ordr-crt-share">
-                                 <li><button class="add-cart-btn hover-btn" id="add-to-cart"><i class="uil uil-shopping-cart-alt"></i>Add to Cart</button></li>
+                                 <li><button  class="add-cart-btn hover-btn {{ $isAddCart ? 'd-none' : 'd-block' }}" id="add-to-cart"><i class="uil uil-shopping-cart-alt"></i>Add to Cart</button></li>
+                                 <li><button class="order-btn hover-btn  {{ $isAddCart ? 'd-block' : 'd-none' }}" id="checkout"></i>Check Out</button></li>
+                                 <li><button class="order-btn hover-btn" id="directly-shopping">Langsung Belanja</button></li>
                                  {{-- <li><button class="order-btn hover-btn">Order Now</button></li> --}}
                               </ul>
                            </div>
@@ -256,8 +258,26 @@
                html: true
              });
             }
-          }       
+          }
       })
    });
+
+   //check cart
+//    $(() => {
+//     $.ajax({
+//         url: BASE_URL+'/check-cart/'+meatId,
+//         type: 'GET',
+//         dataType: 'json',
+//         success: (res) => {
+//             if (res.status === true) {
+//                 $('#checkout').show();
+//                 $('#add-to-cart').hide();
+//             }else{
+//                 $('#checkout').hide();
+//                 $('#add-to-cart').show();
+//             }
+//         }
+//       })
+//    })
 </script>
 @endsection

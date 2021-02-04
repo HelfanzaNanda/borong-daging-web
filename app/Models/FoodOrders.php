@@ -43,7 +43,7 @@ class FoodOrders extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -76,4 +76,9 @@ class FoodOrders extends Model
     // Functions ...
 
     // Relations ...
+
+    public function food()
+    {
+        return $this->belongsTo(Foods::class);
+    }
 }

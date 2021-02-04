@@ -40,7 +40,7 @@ class FaqCategories extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -67,6 +67,10 @@ class FaqCategories extends Model
      * @var boolean
      */
     public $timestamps = false;
+    public function faqs()
+    {
+        return $this->hasMany(Faqs::class, 'faq_category_id');
+    }
 
     // Scopes...
 

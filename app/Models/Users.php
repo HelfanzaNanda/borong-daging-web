@@ -42,7 +42,7 @@ class Users extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token', 'device_token', 'stripe_id', 'card_brand', 'card_last_four', 'trial_ends_at', 'braintree_id', 'paypal_email', 'remember_token', 'created_at', 'updated_at'
+        'name','phone', 'email', 'password', 'api_token', 'device_token', 'stripe_id', 'card_brand', 'card_last_four', 'trial_ends_at', 'braintree_id', 'paypal_email', 'remember_token', 'created_at', 'updated_at'
     ];
 
     /**
@@ -51,7 +51,7 @@ class Users extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -164,7 +164,7 @@ class Users extends Model
             'message' => 'User successfully registered'
         ]);
     }
-    
+
     public static function memberLogins($params, $method, $request)
     {
         if(Auth::attempt(['email' => $params['email'], 'password' => $params['password']])){

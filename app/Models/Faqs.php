@@ -42,7 +42,7 @@ class Faqs extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -69,6 +69,11 @@ class Faqs extends Model
      * @var boolean
      */
     public $timestamps = false;
+
+    public function faq_category()
+    {
+        return $this->belongsTo(FaqCategories::class);
+    }
 
     // Scopes...
 
