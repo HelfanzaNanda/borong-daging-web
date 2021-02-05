@@ -1,5 +1,5 @@
 <div class="top-header-group">
-  <div class="top-header">
+  <div class="top-header" style="height: 45px">
     {{-- <div class="res_main_logo">
       <a href="index.html"><img src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
     </div>
@@ -20,7 +20,7 @@
         <li> <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>1800-000-000</a> </li>
         <li> <a href="#" class="offer-link"><i class="uil uil-gift"></i>Offers</a> </li>
         <li> <a href="{{ route('faq') }}" class="offer-link"><i class="uil uil-question-circle"></i>Help</a> </li>
-        <li> <a href="#" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a> </li>
+        {{-- <li> <a href="#" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a> </li> --}}
         @if(!Session::get('_login'))
         <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#login_modal" class="offer-link"><i class="uil uil-padlock lgn_icon"></i>Login</a> </li>
         @else

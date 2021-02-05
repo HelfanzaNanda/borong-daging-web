@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, shrink-to-fit=9">
   <meta name="description" content="Gambolthemes">
   <meta name="author" content="Gambolthemes">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Borong Daging</title>
 
   <link rel="icon" type="image/png" href="images/fav.png">
@@ -22,6 +23,7 @@
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/semantic/semantic.min.css') }}">
   <link href="{{ asset('assets/vendor/sweetalert/sweetalert.css') }}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <script type="text/javascript">
   let BASE_URL = '{{env('APP_URL')}}';
@@ -32,7 +34,7 @@
     <header class="clearfix header">
       @include('layouts.header')
     </header>
-    <div class="wrapper">
+    <div class="wrapper" style="padding-top: 115px!important">
       @yield('slider')
       @yield('content')
     </div>
@@ -183,6 +185,56 @@
               })
         });
       </script>
+
+
+
+      <script type="text/javascript">
+
+      $(document).ready(function() {
+        $('#search').keyup(function() {
+          var query = $(this).val();
+          if(query != '' || query != null) {
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+              url:"{{ route('product.autocomplete') }}",
+              method:"POST",
+              data:{query:query, _token:_token},
+              success:function(data) {
+                //$('#product-list').hide();
+                $('#product-list').fadeIn();
+                $('#product-list').html(showProductList(data));
+              }
+            });
+          }else{
+            $('#product-list').fadeOut();
+            $('#product-list').hide();
+          }
+        })
+
+        $('#search').keypress(function(e){
+          if (e.which == 13) {
+            var query = $(this).val();
+            if(query != '' || query != null) {
+              location.href = BASE_URL+"/product/search/"+query;
+            } 
+          }
+        })
+      })
+      
+      function showProductList(data) {
+        if (JSON.parse(data).length < 1) {
+          return '';
+        }
+        let html = `<ul class="dropdown-menu" style="display:block; position:absolute">`
+        $.each(JSON.parse(data), function(idx, val){
+          html += `<li><a href="${BASE_URL}/product/search/${val.name}" class="text-black"><p>${val.name}</p></a></li>`
+        });
+        html += `</ul>`
+        return html
+      }
+
+      </script>
+      
       @yield('additionalScript')
     </div>
   </body>

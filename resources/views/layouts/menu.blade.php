@@ -1,19 +1,20 @@
-<div class="sub-header">
+<div class="sub-header" style="height: 69px">
 {{--     <div class="ui dropdown">
       <a href="#" class="category_drop hover-btn" data-toggle="modal" data-target="#category_model" title="Categories"><i class="uil uil-apps"></i><span class="cate__icon">Select Category</span></a>
     </div> --}}
+  <div class="res_main_logo">
+      <a href="index.html"><img src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
+  </div>
+<div class="main_logo" id="logo">
+    <a href="index.html"><img  style="width: auto; height: 65px;"  src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
+    <a href="index.html"><img  style="width: auto; height: 65px;" class="logo-inverse" src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>      
+  </div>
     <nav class="navbar navbar-expand-lg navbar-light py-3">
       <div class="container-fluid">
         <button class="navbar-toggler menu_toggle_btn" type="button" data-target="#navbarSupportedContent"><i class="uil uil-bars"></i></button>
         <div class="collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end bg-dark1 p-3 p-lg-0 mt1-5 mt-lg-0 mobileMenu" id="navbarSupportedContent">
           <ul class="navbar-nav main_nav align-self-stretch">
-            <div class="res_main_logo">
-                <a href="index.html"><img src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
-            </div>
-            <div class="main_logo" id="logo">
-                <a href="index.html"><img style="width: auto" height="50" src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
-                <a href="index.html"><img style="width: auto" height="50" class="logo-inverse" src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
-            </div>
+            
 
             {{-- <li class="nav-item"><a href="{{url('/')}}" class="nav-link active" title="Home">Home</a></li> --}}
 {{--             <li class="nav-item"><a href="#" class="nav-link new_item" title="New Products">New Products</a></li>
@@ -58,14 +59,18 @@
     </nav>
     <div class="search120" style="width: 65%">
         <div class="ui search">
-            <div class="ui left icon input swdh10">
-                <form method="post" action="{{ route('product.search') }}" class="ui left icon input swdh10">
+            <div class="form-group ui left icon input swdh10 ">
+              <input class="prompt srch10" autocomplete="off" id="search" type="text" name="search" placeholder="Search for products.." value="{{ old('search') }}">
+                <div id="product-list" class="w-100"></div>
+                @csrf  
+              {{-- <input class="prompt srch10 d-none" type="text" id="select-search" name="search"> --}}
+                {{-- <form method="post" action="{{ route('product.search') }}" class="ui left icon input swdh10">
                     @csrf
-                    <input class="prompt srch10" type="text" name="search" placeholder="Search for products.." value="{{ old('search') }}">
-                    <button type="submit" style="background-color: red; outline: none; border: none; color: white; padding: 0 5px">
+                    
+                    <button type="submit" class="hover-btn" style="background-color: #f55d2c; outline: none; border: none; color: white; padding: 0 5px">
                         <i class='uil uil-search-alt icon icon1'></i>
                     </button>
-                </form>
+                </form> --}}
                 {{-- <i class='uil uil-search-alt icon icon1'></i> --}}
             </div>
         </div>
@@ -80,3 +85,4 @@
       <a href="#" class="search__btn hover-btn" data-toggle="modal" data-target="#search_model" title="Search"><i class="uil uil-search"></i></a>
     </div>
 </div>
+

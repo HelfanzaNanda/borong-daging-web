@@ -22,12 +22,12 @@ Route::post('/login', 'Auth\LoginController@memberLogin');
 Route::post('/register', 'Auth\LoginController@memberRegister');
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::post('/product/search', 'Product\ProductController@search')->name('product.search');
+Route::get('/product/search/{name}', 'Product\ProductController@search')->name('product.search');
+Route::post('/product/autocomplete', 'Product\ProductController@autocomplete')->name('product.autocomplete');
 Route::get('/product/{slug}', 'Product\ProductController@detail');
 Route::get('/category/{slug}', 'Product\ProductController@productsByCategory');
 
 Route::post('/cart', 'Cart\CartController@insertData');
-Route::get('/check-cart/{foodId}', 'Cart\CartController@checkCart');
 Route::delete('/cart/{id}', 'Cart\CartController@destroy');
 
 Route::get('/checkout', 'Checkout\CheckoutController@index');
