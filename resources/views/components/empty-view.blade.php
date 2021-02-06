@@ -6,7 +6,7 @@
             </div>
             <div class="p-2 bd-highlight">
                 <h3>Opps, Produk Tidak Ditemukan</h3>
-                <p>Silahkan Cari Kategori Lain</p>
+                <h6>Silahkan Cari Kategori Lain</h6>
             </div>
         </div>        
     </div>

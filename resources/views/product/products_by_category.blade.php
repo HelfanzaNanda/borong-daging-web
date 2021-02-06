@@ -68,15 +68,18 @@
                         </div>
                     </div>
                 @empty
-
-                @endforelse
-
-                <div class="col-md-12">
-                    <div class="more-product-btn">
-                        <button class="show-more-btn hover-btn" onclick="window.location.href = '#';">Show
-                            More</button>
+                    <div class="col-md-12">
+                        <x-empty-view/>
                     </div>
-                </div>
+                @endforelse
+                @if (count($products) > 0)
+                    <div class="col-md-12">
+                        <div class="more-product-btn">
+                            <button class="show-more-btn hover-btn" onclick="window.location.href = '#';">Show
+                                More</button>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
