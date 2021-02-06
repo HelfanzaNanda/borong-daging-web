@@ -69,7 +69,7 @@
                     </div>
                 @empty
                 <div class="col-md-12">
-                    <h6 class="text-center">tidak ada hasil </h6>
+                    <x-empty-view/>
                 </div>
                 @endforelse
 

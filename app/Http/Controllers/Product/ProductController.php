@@ -36,15 +36,26 @@ class ProductController extends Controller
         return view('product.'.__FUNCTION__, compact('product', 'id', 'featured_products', 'isAddCart'));
     }
 
-    public function search(Request $request)
+    public function search($name)
     {
-        $search = $request->search;
+        //return json_encode($request->all());
+        //$search = $request->search;
+        $products = MeatForSale::where('name', 'like', '%' . $name . '%')->get();
         return view('product.product_search', [
-            'search' => $search,
-            // 'products' => MeatForSale::whereHas('category', function($q) use($search){
-            //     $q->where('name', 'like', '%' . $search . '%');
-            // })->get(),
-            'products' => MeatForSale::where('name', 'like', '%' . $search . '%')->get(),
+            'search' => $name,
+            'products' => $products
         ]);
+        //return json_encode($products);
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $query = $request->get('query');
+        if ($query) {
+            $products = MeatForSale::where('name', 'like', '%' . $query . '%')->get('name');
+        }else {
+            $products = [];
+        }
+        return json_encode($products);
     }
 }
