@@ -67,6 +67,16 @@ class RoleHasPermissions extends Model
      */
     public $timestamps = false;
 
+    public function permission()
+    {
+        return $this->belongsTo(Permissions::class);
+    }
+
+    public function role()
+    {
+       return $this->belongsTo(Roles::class);
+    }
+
     // Scopes...
 
     // Functions ...

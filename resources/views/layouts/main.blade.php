@@ -13,10 +13,6 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('assets/vendor/unicons-2.0.1/css/unicons.css') }}">
-  <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/night-mode.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/css/step-wizard.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/OwlCarousel/assets/owl.carousel.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
@@ -24,6 +20,10 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/semantic/semantic.min.css') }}">
   <link href="{{ asset('assets/vendor/sweetalert/sweetalert.css') }}" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/night-mode.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/step-wizard.css') }}" rel="stylesheet">
 </head>
 <script type="text/javascript">
   let BASE_URL = '{{env('APP_URL')}}';
@@ -52,6 +52,9 @@
       <script src="{{ asset('assets/js/night-mode.js') }}"></script>
       <script src="{{ asset('assets/js/product.thumbnail.slider.js') }}"></script>
       <script src="{{ asset('assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
+      
+      
+
       <script type="text/javascript">
         $('form#form-login').submit( function( e ) {
           e.preventDefault();
@@ -189,7 +192,6 @@
 
 
       <script type="text/javascript">
-
       $(document).ready(function() {
         $('#search').keyup(function() {
           var query = $(this).val();

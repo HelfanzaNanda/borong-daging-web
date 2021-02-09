@@ -38,3 +38,4 @@ Route::post('/order', 'Order\OrderController@insertData');
 Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');
 
 Route::get('faq', 'Faq\FaqController@index')->name('faq');
+

@@ -28,6 +28,9 @@ class Users extends Model
      * @var string
      */
     protected $table = 'users';
+    
+    protected $guard_name = 'web';
+
 
     /**
      * The primary key for the model.
