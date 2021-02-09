@@ -10,6 +10,7 @@ use App\Models\Foods;
 use App\Models\Payments;
 use App\Models\Restaurants;
 use App\Models\Users;
+use App\User;
 use DB;
 use Faker\Provider\ar_SA\Payment;
 use Illuminate\Database\Eloquent\Model;
@@ -269,12 +270,24 @@ class Orders extends Model
                     $order_status = 5;
                 break;
             }
+            if ($order->delivery_address) {
+                if ($order->user->phone) {
+                    $address_desc = $order->delivery_address->description.'( '. $order->user->phone .' )';
+                }else {
+                    $address_desc = $order->delivery_address->description.'( - )';
+                }
+            }else {
+                $address_desc = '-';
+            }
             $item = [
+                'id' => "#".$order->id,
+                'address_desc' => $address_desc,
                 'phone' => $order->user->phone ?? '-',
-                'hint' => $order->hint ?? '-',
                 'address' => $order->delivery_address ? $order->delivery_address->address : '-',
                 'count_items' => $order->food_orders->count(),
-                'food_items' => $order->food_orders()->get()->implode('food.name', ', '),
+                //'food_items' => $order->food_orders()->get()->implode('food.name', ', '),
+                'hint' => $order->hint ?? '-',
+                'food_items' => $order->food_orders()->with('food')->get(),
                 'sub_total' => $order->payment->price,
                 'delivery_fee' => $order->delivery_fee,
                 'total' => $order->payment->price + $order->delivery_fee,
@@ -305,6 +318,11 @@ class Orders extends Model
     public function order_status()
     {
         return $this->belongsTo(OrderStatuses::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
