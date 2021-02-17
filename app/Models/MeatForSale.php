@@ -94,4 +94,31 @@ class MeatForSale extends Model
     {
         return $this->belongsTo(Categories::class);
     }
+
+    public static function getAll()
+    {
+        $foods = Foods::all();
+        $res = [];
+        foreach ($foods as $food) {
+            $featured_product = self::where('name', $food->name)->where('featured', 1)->first();
+            if ($featured_product) {
+                array_push($res, $featured_product);
+            }
+        }
+        return collect($res);
+    }
+
+    public static function byCategory($id)
+    {
+        $foods = Foods::all();
+        $res = [];
+        foreach ($foods as $food) {
+            $featured_product = self::where('name', $food->name)
+            ->where('category_id', $id)->where('featured', 1)->first();
+            if ($featured_product) {
+                array_push($res, $featured_product);
+            }
+        }
+        return collect($res);
+    }
 }

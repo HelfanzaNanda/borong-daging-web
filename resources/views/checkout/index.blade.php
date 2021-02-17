@@ -9,7 +9,7 @@
           <div class="col-md-12">
              <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                   <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
              </nav>
@@ -38,16 +38,16 @@
                                      <div class="form-group">
                                         <div class="product-radio">
                                            <ul class="product-now">
-                                              <li>
-                                                 <input type="radio" id="ad1" name="address_description" {{$delivery_address['description'] == 'Home' ? 'checked' : ''}} value="Home">
+                                             <li>
+                                                 <input type="radio" id="ad1" name="address_description" {{$delivery_address ? $delivery_address['description'] == 'Home' ? 'checked' : '' : 'checked'}} value="Home">
                                                  <label for="ad1">Home</label>
                                               </li>
                                               <li>
-                                                 <input type="radio" id="ad2" name="address_description" {{$delivery_address['description'] == 'Office' ? 'checked' : ''}} value="Office">
+                                                 <input type="radio" id="ad2" name="address_description" {{$delivery_address ? $delivery_address['description'] == 'Office' ? 'checked' : '' : ''}} value="Office">
                                                  <label for="ad2">Office</label>
                                               </li>
                                               <li>
-                                                 <input type="radio" id="ad3" name="address_description" {{$delivery_address['description'] == 'Other' ? 'checked' : ''}} value="Other">
+                                                 <input type="radio" id="ad3" name="address_description" {{$delivery_address ? $delivery_address['description'] == 'Other' ? 'checked' : '' : ''}} value="Other">
                                                  <label for="ad3">Other</label>
                                               </li>
                                            </ul>
@@ -55,40 +55,20 @@
                                      </div>
                                      <div class="address-fieldset">
                                         <div class="row">
-{{--                                            <div class="col-lg-6 col-md-12">
-                                              <div class="form-group">
-                                                 <label class="control-label">Name*</label>
-                                                 <input id="name" name="name" type="text" placeholder="Name" class="form-control input-md" required="">
-                                              </div>
-                                           </div> --}}
-{{--                                            <div class="col-lg-6 col-md-12">
-                                              <div class="form-group">
-                                                 <label class="control-label">Email Address*</label>
-                                                 <input id="email1" name="email1" type="text" placeholder="Email Address" class="form-control input-md" required="">
-                                              </div>
-                                           </div> --}}
-{{--                                            <div class="col-lg-12 col-md-12">
-                                              <div class="form-group">
-                                                 <label class="control-label">Flat / House / Office No.*</label>
-                                                 <input id="address-number" name="address_number" type="text" placeholder="Address" class="form-control input-md" required="">
-                                              </div>
-                                           </div> --}}
                                            <div class="col-lg-12 col-md-12">
                                               <div class="form-group">
                                                  <label class="control-label">Alamat*</label>
-                                                 <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{$delivery_address['address']}}">
+                                                 <textarea id="address-street" name="address_street" cols="30" placeholder="Street Address" class="form-control input-md" >{{$delivery_address ? $delivery_address['address'] : ''}}</textarea>
+                                                 <input type="hidden" id="address-id" value="{{$delivery_address ? $delivery_address['id'] : '0'}}">
+                                                 {{-- <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{$delivery_address['address']}}"> --}}
                                               </div>
                                            </div>
-{{--                                            <div class="col-lg-6 col-md-12">
-                                              <div class="form-group">
-                                                 <label class="control-label">Locality*</label>
-                                                 <input id="Locality" name="locality" type="text" placeholder="Enter City" class="form-control input-md" required="">
-                                              </div>
-                                           </div> --}}
                                            <div class="col-lg-12 col-md-12">
                                               <div class="form-group">
                                                  <div class="address-btns">
-                                                    <button type="button" class="save-btn14 hover-btn" id="address-save">Save</button>
+                                                    <button type="button" class="save-btn14 hover-btn" id="address-save">
+                                                       {{ $delivery_address ? 'Update' : 'Save'  }}
+                                                    </button>
                                                     <a class="collapsed ml-auto next-btn16 hover-btn" role="button" data-toggle="collapse" data-parent="#checkout_wizard" href="#collapseTwo"> Next </a>
                                                  </div>
                                               </div>
@@ -144,32 +124,32 @@
                                         <div class="grouped fields">
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="deliver_time" checked="" tabindex="0" class="hidden" value="08.00 - 10.00">
-                                                 <label>08.00 - 10.00</label>
+                                                 <input type="radio" name="deliver_time" checked tabindex="0" class="" id="deliver_time1" value="08.00 - 10.00">
+                                                 <label for="deliver_time1">08.00 - 10.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="10.00 - 12.00">
-                                                 <label>10.00 - 12.00</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="" id="deliver_time2" value="10.00 - 12.00">
+                                                 <label for="deliver_time2">10.00 - 12.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="12.00 - 14.00">
-                                                 <label>12.00 - 14.00</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="" id="deliver_time3" value="12.00 - 14.00">
+                                                 <label for="deliver_time3">12.00 - 14.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="14.00 - 16.00">
-                                                 <label>14.00 - 16.00</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="" id="deliver_time4" value="14.00 - 16.00">
+                                                 <label for="deliver_time4">14.00 - 16.00</label>
                                               </div>
                                            </div>
                                            <div class="field">
                                               <div class="ui radio checkbox chck-rdio">
-                                                 <input type="radio" name="deliver_time" tabindex="0" class="hidden" value="16.00 - 18.00">
-                                                 <label>16.00 - 18.00</label>
+                                                 <input type="radio" name="deliver_time" tabindex="0" class="" id="deliver_time5" value="16.00 - 18.00">
+                                                 <label for="deliver_time5">16.00 - 18.00</label>
                                               </div>
                                            </div>
                                         </div>
@@ -299,6 +279,7 @@
           data: {'hint': $("input[name='hint']:checked").val(), 'deliver_time': $("input[name='deliver_time']:checked").val(), 'payment_method': $("input[name='paymentmethod']:checked").val(), '_token': '{{ csrf_token() }}'},
           dataType: 'json',
           success: function( data ) {
+            console.log(data);
             if(data.status == 'success'){
              setTimeout(function() {
                swal({
@@ -330,7 +311,12 @@
       	$.ajax({
           url: BASE_URL+'/delivery_address',
           type: 'POST',
-          data: {description : addressDescription, address: $('#address-street').val(), '_token': '{{ csrf_token() }}'},
+          data: {
+            description : addressDescription, 
+            address: $('#address-street').val(), 
+            id: $('#address-id').val(),
+            '_token': '{{ csrf_token() }}'
+         },
           dataType: 'json',
           success: function( data ) {
             if(data.status == 'success'){
@@ -357,5 +343,26 @@
           }       
       	});
    });
+
+   $(document).on('click', "input[name='address_description']:checked", function(e){
+      var desc = $(this).val();
+      $.ajax({
+          url: BASE_URL+'/delivery_address-change',
+          type: 'POST',
+          data: { description : desc, '_token': '{{ csrf_token() }}' },
+          dataType: 'json',
+          success: function( res ) {
+             if (res.data == null) {
+                $('#address-street').val('')
+                $('#address-id').val('0')
+                $('#address-save').text('Save');
+             }else{
+               $('#address-street').val(res.data.address)
+               $('#address-id').val(res.data.id)
+               $('#address-save').text('Update');
+             }
+          }       
+      });
+   })
 </script>
 @endsection

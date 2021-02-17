@@ -33,6 +33,7 @@ Route::delete('/cart/{id}', 'Cart\CartController@destroy');
 Route::get('/checkout', 'Checkout\CheckoutController@index');
 
 Route::post('/delivery_address', 'DeliveryAddress\DeliveryAddressController@insertData');
+Route::post('/delivery_address-change', 'DeliveryAddress\DeliveryAddressController@change');
 
 Route::post('/order', 'Order\OrderController@insertData');
 Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');

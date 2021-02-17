@@ -99,10 +99,13 @@ class DeliveryAddresses extends Model
             unset($params['_token']);
         }
 
-        if (isset($params['id']) && $params['id']) {
-            $id = $params['id'];
-            unset($params['id']);
+        // if (isset($params['id']) && $params['id']) {
+           
+        // }
 
+        $id = $params['id'];
+        unset($params['id']);
+        if ($id != '0') {
             $update = self::where('id', $id)->update($params);
             DB::commit();
             return response()->json([
@@ -110,12 +113,14 @@ class DeliveryAddresses extends Model
                 'message' => 'Data Berhasil Diubah!'
             ]);
         }
+        
+        $insert = self::create($params);
 
-        if (self::where('user_id', $params['user_id'])->count() > 0) {
-            $update = self::where('user_id', $params['user_id'])->update($params);
-        } else {
-            $insert = self::create($params);
-        }
+        // if (self::where('user_id', $params['user_id'])->count() > 0) {
+        //     $update = self::where('user_id', $params['user_id'])->update($params);
+        // } else {
+            
+        // }
 
         DB::commit();
         return response()->json([

@@ -16,11 +16,12 @@ class ProductController extends Controller
     public function productsByCategory($slug)
     {
         $id = preg_replace('/\D/', '', $slug);
+        
+        $products = MeatForSale::byCategory($id);
         return view('product.products_by_category', [
             'category' => Categories::where('id', $id)->first(),
-            'products' => MeatForSale::where('category_id', $id)->get(),
+            'products' => $products,
         ]);
-        //return json_encode($products);
     }
     public function detail($slug, Request $request)
     {
