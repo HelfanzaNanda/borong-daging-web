@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
                     </ol>
                 </nav>
@@ -52,7 +52,7 @@
                 @forelse ($products as $product)
                     <div class="col-lg-3 col-md-6">
                         <div class="product-item mb-30">
-                            <a href="single_product_view.html" class="product-img">
+                            <a href="{{url('/product/'.\Str::slug($product['name'].'-'.$product['id']))}}" class="product-img">
                                 <img src="images/product/img-1.jpg" alt="">
                                 <div class="product-absolute-options">
                                     <span class="offer-badge-1">{{ round((floatval($product->discount_price) / floatval($product->price)) * 100).'%'  }} off</span>
@@ -72,14 +72,14 @@
                         <x-empty-view/>
                     </div>
                 @endforelse
-                @if (count($products) > 0)
+                {{-- @if (count($products) > 0)
                     <div class="col-md-12">
                         <div class="more-product-btn">
                             <button class="show-more-btn hover-btn" onclick="window.location.href = '#';">Show
                                 More</button>
                         </div>
                     </div>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

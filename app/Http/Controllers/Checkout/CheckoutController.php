@@ -14,7 +14,8 @@ class CheckoutController extends Controller
     public function index()
     {
     	$carts = Carts::where('user_id', Session::get('_id'))->get();
-    	$delivery_address = DeliveryAddresses::where('user_id', Session::get('_id'))->first();
+    	$delivery_address = DeliveryAddresses::where('user_id', Session::get('_id'))
+        ->where('description', 'Home')->first();
 
         return view('checkout.'.__FUNCTION__, compact('carts', 'delivery_address'));
     }

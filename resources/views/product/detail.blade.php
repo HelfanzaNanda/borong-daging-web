@@ -195,6 +195,7 @@
                   <div class="item">
                      <div class="product-item">
                         <a href="{{url('/product/'.\Str::slug($featured_product['name'].'-'.$featured_product['id']))}}" class="product-img">
+                           {{-- <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$featured_product['media']['id'].'/'.$featured_product['media']['file_name'] }}" alt=""> --}}
                            <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$featured_product['media']['id'].'/'.$featured_product['media']['file_name'] }}" alt="">
                            <div class="product-absolute-options">
                               <span class="offer-badge-1">6% off</span>
@@ -261,23 +262,5 @@
           }
       })
    });
-
-   //check cart
-//    $(() => {
-//     $.ajax({
-//         url: BASE_URL+'/check-cart/'+meatId,
-//         type: 'GET',
-//         dataType: 'json',
-//         success: (res) => {
-//             if (res.status === true) {
-//                 $('#checkout').show();
-//                 $('#add-to-cart').hide();
-//             }else{
-//                 $('#checkout').hide();
-//                 $('#add-to-cart').show();
-//             }
-//         }
-//       })
-//    })
 </script>
 @endsection

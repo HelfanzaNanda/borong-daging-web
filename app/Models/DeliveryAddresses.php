@@ -98,27 +98,26 @@ class DeliveryAddresses extends Model
         if (isset($params['_token']) && $params['_token']) {
             unset($params['_token']);
         }
-
         if (isset($params['id']) && $params['id']) {
             $id = $params['id'];
             unset($params['id']);
 
-            $update = self::where('id', $id)->update($params);
-            DB::commit();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Data Berhasil Diubah!'
-            ]);
+            if ($id != '0') {
+                $update = self::where('id', $id)->update($params);
+                DB::commit();
+                return response()->json([
+                    'url' => env("APP_URL"). '/delivery-address',
+                    'status' => 'success',
+                    'message' => 'Data Berhasil Diubah!'
+                ]);
+            }
         }
-
-        if (self::where('user_id', $params['user_id'])->count() > 0) {
-            $update = self::where('user_id', $params['user_id'])->update($params);
-        } else {
-            $insert = self::create($params);
-        }
+        
+        $insert = self::create($params);
 
         DB::commit();
         return response()->json([
+            'url' => env("APP_URL"). '/delivery-address',
             'status' => 'success',
             'message' => 'Data Berhasil Disimpan'
         ]);

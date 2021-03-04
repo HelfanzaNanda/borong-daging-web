@@ -157,7 +157,7 @@ class Users extends Model
             'name' => $params['name'],
             'email' => $params['email'],
             'phone' => $params['phone'],
-            'address' => $params['address'],
+            //'address' => $params['address'],
             'role_id' => 2,
             'password' => bcrypt($params['password'])
         ]);
@@ -194,5 +194,30 @@ class Users extends Model
                 'data' => null
             ], 200);
         }
+    }
+
+    private static function customValidation($params)
+    {
+        $check_phone = self::where('phone', $params['phone'])->count();
+
+        if ($check_phone > 0) {
+            return [
+                'status' => false,
+                'message' => "Nomor HP sudah pernah digunakan!"
+            ];
+        }
+
+        $check_email = self::where('email', $params['email'])->count();
+
+        if ($check_email > 0) {
+            return [
+                'status' => false,
+                'message' => "Email sudah pernah digunakan!"
+            ];
+        }
+
+        return [
+            'status' => true
+        ];
     }
 }

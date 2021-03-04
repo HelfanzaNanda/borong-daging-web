@@ -20,11 +20,11 @@ class LoginController extends Controller
     public function memberRegister(Request $request)
     {
         $params = $request->all();
-        $params['name'] = $params['register_name'];
-        $params['email'] = $params['register_email'];
-        $params['phone'] = $params['register_phone'];
-        $params['address'] = $params['register_address'];
-        $params['password'] = $params['register_password'];
+        $params['name'] = $params['name'];
+        $params['email'] = $params['email'];
+        $params['phone'] = $params['phone'];
+        //$params['address'] = $params['address'];
+        $params['password'] = $params['password'];
         
         return Users::createOrUpdate($params, $request->method(), $request);
     }

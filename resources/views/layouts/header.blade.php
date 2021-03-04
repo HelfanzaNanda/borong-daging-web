@@ -23,6 +23,7 @@
         {{-- <li> <a href="#" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a> </li> --}}
         @if(!Session::get('_login'))
         <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#login_modal" class="offer-link"><i class="uil uil-padlock lgn_icon"></i>Login</a> </li>
+        <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#register_modal" class="offer-link"><i class="uil uil-padlock lgn_icon"></i>Register</a> </li>
         @else
         <li class="ui dropdown">
           <a href="#" class="opts_account">
@@ -41,6 +42,7 @@
             </div>
             {{-- <a href="dashboard_overview.html" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a> --}}
             <a href="{{ route('myorders') }}" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
+            <a href="{{ url('/delivery-address') }}" class="item channel_item"><i class="uil uil-home-alt icon__1"></i>Shipping Management</a>
             {{-- <a href="dashboard_my_wishlist.html" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
             <a href="dashboard_my_wallet.html" class="item channel_item"><i class="uil uil-usd-circle icon__1"></i>My Wallet</a>
             <a href="dashboard_my_addresses.html" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
