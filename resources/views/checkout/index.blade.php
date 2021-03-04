@@ -39,15 +39,15 @@
                                         <div class="product-radio">
                                            <ul class="product-now">
                                               <li>
-                                                 <input type="radio" id="ad1" name="address_description" {{$delivery_address['description'] == 'Home' ? 'checked' : ''}} value="Home">
+                                                 <input type="radio" id="ad1" name="address_description" {{(isset($delivery_address['description']) && $delivery_address['description']) == 'Home' ? 'checked' : ''}} value="Home">
                                                  <label for="ad1">Home</label>
                                               </li>
                                               <li>
-                                                 <input type="radio" id="ad2" name="address_description" {{$delivery_address['description'] == 'Office' ? 'checked' : ''}} value="Office">
+                                                 <input type="radio" id="ad2" name="address_description" {{(isset($delivery_address['description']) && $delivery_address['description']) == 'Office' ? 'checked' : ''}} value="Office">
                                                  <label for="ad2">Office</label>
                                               </li>
                                               <li>
-                                                 <input type="radio" id="ad3" name="address_description" {{$delivery_address['description'] == 'Other' ? 'checked' : ''}} value="Other">
+                                                 <input type="radio" id="ad3" name="address_description" {{(isset($delivery_address['description']) && $delivery_address['description']) == 'Other' ? 'checked' : ''}} value="Other">
                                                  <label for="ad3">Other</label>
                                               </li>
                                            </ul>
@@ -76,7 +76,7 @@
                                            <div class="col-lg-12 col-md-12">
                                               <div class="form-group">
                                                  <label class="control-label">Alamat*</label>
-                                                 <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{$delivery_address['address']}}">
+                                                 <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{isset($delivery_address['address']) && $delivery_address['address'] ? $delivery_address['address'] : '-'}}">
                                               </div>
                                            </div>
 {{--                                            <div class="col-lg-6 col-md-12">
