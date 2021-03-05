@@ -84,6 +84,25 @@
         style: 'mapbox://styles/mapbox/streets-v11'
     });
 
+     //location user
+    let geoLocate = new mapboxgl.GeolocateControl();
+    map.addControl(geoLocate, 'bottom-right');
+    geoLocate.on('geolocate', function(e) {
+        map.flyTo({
+            center:[e.coords.longitude, e.coords.latitude], 
+            zoom:16 //set zoom 
+        });
+    });
+
+     //search
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        marker: false,
+        mapboxgl: mapboxgl
+    });
+    map.addControl(geocoder, 'top-left');
+
+    //navigasi control
     map.addControl(new mapboxgl.NavigationControl())
 
     $(document).ready(function() {
@@ -92,27 +111,38 @@
         showMarker(lng, lat)
     })
 
+    //map click
     map.on('click', (e) => {
         const lng = e.lngLat.lng
         const lat = e.lngLat.lat
         showMarker(lng, lat)
-        //changeZoom(lng, lat)
-        $('#lng').val(lng)
-        $('#lat').val(lat)
+        setLatLngView(lng, lat)
     })
 
-    // function changeZoom(lng, lat){
-    //     map.flyTo({center: [lng, lat], zoom:10});
-    // }
-
-
     let markers = [];
+    let marker = new mapboxgl.Marker({draggable: true});
+
+    //show marker
     function showMarker(lng, lat){
         clearMarkers()
-        let marker =  new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+        marker.setLngLat([lng, lat]).addTo(map);
         markers.push(marker);
     }
 
+    // marker draggable
+    function onDragEnd() {
+        var lngLat = marker.getLngLat();
+        setLatLngView(lngLat.lng, lngLat.lat)
+    }
+    marker.on('dragend', onDragEnd);
+
+    //set lnglat
+    function setLatLngView(lng, lat){
+        $('#lng').val(lng)
+        $('#lat').val(lat)
+    }
+
+    //remove marker
     function clearMarkers(){
         markers.forEach((marker) => marker.remove());
         markers = [];

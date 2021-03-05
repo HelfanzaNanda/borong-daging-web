@@ -58,7 +58,7 @@
                                 <textarea name="address" id="address" class="form-control" style="margin-top: 0px; margin-bottom: 0px; height: 147px;"></textarea>
                             </div>
                         
-                            <button class="btn btn-success btn-block float-right">simpan</button>
+                            <button class="btn btn-success btn-block float-right">Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -79,27 +79,69 @@
         style: 'mapbox://styles/mapbox/streets-v11'
     });
 
+    //location user
+    let geoLocate = new mapboxgl.GeolocateControl();
+    map.addControl(geoLocate, 'bottom-right');
+    geoLocate.on('geolocate', function(e) {
+        map.flyTo({
+            center:[e.coords.longitude, e.coords.latitude], 
+            zoom:16 //set zoom 
+        });
+    });
+
+    //search
+    let geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        marker: false,
+        mapboxgl: mapboxgl,
+        flyTo: {
+            maxZoom: 16,
+        }
+    });
+    map.addControl(geocoder, 'top-left');
+
+
+    //navigasi control
     map.addControl(new mapboxgl.NavigationControl())
+
+    //map click
     map.on('click', (e) => {
         const lng = e.lngLat.lng
         const lat = e.lngLat.lat
         showMarker(lng, lat);
-        $('#lng').val(lng)
-        $('#lat').val(lat)
+       setLatLngView(lng, lat)
     })
+
     let markers = [];
+    let marker = new mapboxgl.Marker({draggable: true});
     
+    //show marker
     function showMarker(lng, lat){
         clearMarkers()
-        let marker =  new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+        marker.setLngLat([lng, lat]).addTo(map);
         markers.push(marker);
     }
 
+    // marker draggable
+    function onDragEnd() {
+        let lngLat = marker.getLngLat();
+        setLatLngView(lngLat.lng, lngLat.lat)
+    }
+    marker.on('dragend', onDragEnd);
+
+    //set lnglat
+    function setLatLngView(lng, lat){
+        $('#lng').val(lng)
+        $('#lat').val(lat)
+    }
+
+    //remove marker
     function clearMarkers(){
         markers.forEach((marker) => marker.remove());
         markers = [];
     }
 
+    //submit
     $('form#add-form').submit( async function( e ) {
         e.preventDefault();
         let form_data = new FormData( this );

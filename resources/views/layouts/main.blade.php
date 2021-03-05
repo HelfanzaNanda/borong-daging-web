@@ -24,8 +24,9 @@
   <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/night-mode.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/step-wizard.css') }}" rel="stylesheet">
+  {{-- mapbox --}}
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
-
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css">
  
 </head>
 <script type="text/javascript">
@@ -47,12 +48,17 @@
       <script data-cfasync="false" src="https://gambolthemes.net/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
       <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
       <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+      {{-- mapbox --}}
       <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+      <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+      
       <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.js') }}"></script>
-      {{-- <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script> --}}
+      <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script>
       <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
       <script src="{{ asset('assets/js/custom.js') }}"></script>
-      {{-- <script src="{{ asset('assets/js/offset_overlay.js') }}"></script> --}}
+      <script src="{{ asset('assets/js/offset_overlay.js') }}"></script>
       <script src="{{ asset('assets/js/night-mode.js') }}"></script>
       <script src="{{ asset('assets/js/product.thumbnail.slider.js') }}"></script>
       <script src="{{ asset('assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
