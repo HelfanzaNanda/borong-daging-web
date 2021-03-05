@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\DeliveryAddress;
 
-use App\Http\Controllers\Controller;
-use App\Models\DeliveryAddresses;
-use Illuminate\Http\Request;
 use Session;
+use App\User;
+use Illuminate\Http\Request;
+use App\Models\DeliveryAddresses;
+use App\Http\Controllers\Controller;
 
 class DeliveryAddressController extends Controller
 {
     public function index()
     {
+        $userId = Session::get('_id');
         return view('delivery_address.index', [
+            'user' => User::where('id', $userId)->first(),
             'addresses' => DeliveryAddresses::where('user_id', Session::get('_id'))->paginate(7),
         ]);
     }
