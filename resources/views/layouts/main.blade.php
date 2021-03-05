@@ -49,7 +49,7 @@
       <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
       <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
       <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.js') }}"></script>
-      {{-- <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script> --}}
+      <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script>
       <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
       <script src="{{ asset('assets/js/custom.js') }}"></script>
       {{-- <script src="{{ asset('assets/js/offset_overlay.js') }}"></script> --}}
