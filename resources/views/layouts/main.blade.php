@@ -33,6 +33,12 @@
   let BASE_URL = '{{env('APP_URL')}}';
 </script>
   <body>
+    <style type="text/css">
+      ul.dropdown-menu {
+        padding: 0.5rem 0.5rem;
+        width: 100%;
+      }
+    </style>
     @include('layouts.main_modal')
     @yield('modal')
     <header class="clearfix header">

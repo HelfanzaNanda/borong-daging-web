@@ -22,8 +22,8 @@
         <li> <a href="{{ route('faq') }}" class="offer-link"><i class="uil uil-question-circle"></i>Help</a> </li>
         {{-- <li> <a href="#" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a> </li> --}}
         @if(!Session::get('_login'))
-        <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#login_modal" class="offer-link"><i class="uil uil-padlock lgn_icon"></i>Login</a> </li>
-        <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#register_modal" class="offer-link"><i class="uil uil-padlock lgn_icon"></i>Register</a> </li>
+        <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#login_modal" class="offer-link"><i class="uil uil-padlock"></i>Login</a> </li>
+        <li> <a href="javascript:void(0)" data-toggle="modal" data-target="#register_modal" class="offer-link"><i class="uil uil-padlock"></i>Register</a> </li>
         @else
         <li class="ui dropdown">
           <a href="#" class="opts_account">
