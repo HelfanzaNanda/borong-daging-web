@@ -27,49 +27,53 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="second-row-item">
-          <h4>Categories</h4>
+          <h4>Info Borong Daging</h4>
           <ul>
-            <li><a href="#">Fruits and Vegetables</a></li>
-            <li><a href="#">Grocery & Staples</a></li>
-            <li><a href="#">Dairy & Eggs</a></li>
-            <li><a href="#">Beverages</a></li>
-            <li><a href="#">Snacks</a></li>
-            <li><a href="#">Home Care</a></li>
-            <li><a href="#">Noodles & Sauces</a></li>
-            <li><a href="#">Personal Care</a></li>
-            <li><a href="#">Pet Care</a></li>
-            <li><a href="#">Meat & Seafood</a></li>
-            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Tentang Borong Daging</a></li>
+            <li><a href="#">Karir</a></li>
+            <li><a href="#">Kabar Terbaru</a></li>
+          </ul>
+          <h4>Kerjasama Dengan Borong Daging</h4>
+          <ul>
+            <li><a href="#">Ingin Penghasilan Tambahan?</a></li>
+            <li><a href="#">Bergabung di Mitra Borong Daging</a></li>
+            <li><a href="#">Berjualan di Borong Daging</a></li>
+            <li><a href="#">Kolaborasi</a></li>
           </ul>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="second-row-item">
-          <h4>Useful Links</h4>
+          <h4>Layanan Borong Daging</h4>
           <ul>
-            <li><a href="about_us.html">About US</a></li>
-            <li><a href="shop_grid.html">Featured Products</a></li>
-            <li><a href="offers.html">Offers</a></li>
-            <li><a href="our_blog.html">Blog</a></li>
-            <li><a href="faq.html">Faq</a></li>
-            <li><a href="career.html">Careers</a></li>
-            <li><a href="contact_us.html">Contact Us</a></li>
+            <li><a href="about_us.html">FAQ</a></li>
+            <li><a href="shop_grid.html">Gratis Ongkir</a></li>
+            <li><a href="offers.html">Hubungi Kami</a></li>
+            <li><a href="our_blog.html">Cara Pemesanan</a></li>
+            <li><a href="faq.html">Cara Pembayaran</a></li>
           </ul>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="second-row-item">
-          <h4>Top Cities</h4>
-          <ul>
-            <li><a href="#">Gurugram</a></li>
-            <li><a href="#">New Delhi</a></li>
-            <li><a href="#">Bangaluru</a></li>
-            <li><a href="#">Mumbai</a></li>
-            <li><a href="#">Hyderabad</a></li>
-            <li><a href="#">Kolkata</a></li>
-            <li><a href="#">Ludhiana</a></li>
-            <li><a href="#">Chandigrah</a></li>
-          </ul>
+          <h4>Kategori Produk</h4>
+            @php
+                $categories = App\Models\Categories::get()
+            @endphp
+            <ul>
+              @foreach ($categories as $category)
+                <li><a href="{{url('/category/'.\Str::slug($category['name'].'-'.$category['id']))}}">{{ $category->name }}</a></li>
+              @endforeach
+            </ul>
+            <h4>Kategori Berdasarkan Masakan</h4>
+            @php
+                $cuisines = App\Models\Cuisines::get()
+            @endphp
+            <ul>
+              @foreach ($cuisines as $cuisine)
+                <li><a href="{{url('/cuisine/'.\Str::slug($cuisine['name'].'-'.$cuisine['id']))}}">{{ $cuisine->name }}</a></li>
+              @endforeach
+            </ul>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6">

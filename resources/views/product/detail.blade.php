@@ -110,17 +110,17 @@
                                     <div class="pdp-group-dt">
                                        <div class="pdp-icon"><i class="uil uil-usd-circle"></i></div>
                                        <div class="pdp-text-dt">
-                                          <span>Lowest Price Guaranteed</span>
-                                          <p>Get difference refunded if you find it cheaper anywhere else.</p>
+                                          <span>Gratis Ongkir</span>
+                                          <p>Dapatkan gratis ongkir setiap pembelian produk di Borong Daging (berlaku s&k)</p>
                                        </div>
                                     </div>
                                  </li>
                                  <li>
                                     <div class="pdp-group-dt">
-                                       <div class="pdp-icon"><i class="uil uil-cloud-redo"></i></div>
+                                       <div class="pdp-icon"><i class="uil uil-archive"></i></div>
                                        <div class="pdp-text-dt">
-                                          <span>Easy Returns & Refunds</span>
-                                          <p>Return products at doorstep and get refund in seconds.</p>
+                                          <span>Jaminan Borong Daging</span>
+                                          <p>Semua produk di Borong Daging dijamin fresh, dan cepat sampai sesuai dengan pesanan</p>
                                        </div>
                                     </div>
                                  </li>

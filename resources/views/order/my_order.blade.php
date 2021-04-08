@@ -10,7 +10,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Orders</li>
+                        <li class="breadcrumb-item active" aria-current="page">Orderan Saya</li>
                     </ol>
                 </nav>
             </div>
@@ -40,24 +40,7 @@
 <div class="">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-4">
-                <div class="left-side-tabs">
-                    <div class="dashboard-left-links">
-                        <a href="dashboard_overview.html" class="user-item"><i class="uil uil-apps"></i>Overview</a>
-                        <a href="dashboard_my_orders.html" class="user-item active"><i class="uil uil-box"></i>My
-                            Orders</a>
-                        <a href="dashboard_my_rewards.html" class="user-item"><i class="uil uil-gift"></i>My
-                            Rewards</a>
-                        <a href="dashboard_my_wallet.html" class="user-item"><i class="uil uil-wallet"></i>My
-                            Wallet</a>
-                        <a href="dashboard_my_wishlist.html" class="user-item"><i class="uil uil-heart"></i>Shopping
-                            Wishlist</a>
-                        <a href="dashboard_my_addresses.html" class="user-item"><i class="uil uil-location-point"></i>My
-                            Address</a>
-                        <a href="sign_in.html" class="user-item"><i class="uil uil-exit"></i>Logout</a>
-                    </div>
-                </div>
-            </div>
+            <x-menu-user-login/>
             <div class="col-lg-9 col-md-8">
                 <div class="dashboard-right">
                     <div class="row">
@@ -66,7 +49,7 @@
                                 <h4><i class="uil uil-box"></i>My Orders</h4>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-12 col-md-12 mt-3">
                             @forelse ($orders as $key => $order)
                             <div class="pdpt-bg">
                                 <div class="pdpt-title">
@@ -132,7 +115,7 @@
                             </div>
                         </div>
                         @empty
-                        <h5>tidak ada orderan</h5>
+                        <x-empty-view-order/>
                         @endforelse
                     </div>
                 </div>
