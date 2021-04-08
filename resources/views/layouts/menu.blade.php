@@ -3,11 +3,11 @@
       <a href="#" class="category_drop hover-btn" data-toggle="modal" data-target="#category_model" title="Categories"><i class="uil uil-apps"></i><span class="cate__icon">Select Category</span></a>
     </div> --}}
   <div class="res_main_logo">
-      <a href="index.html"><img src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
+      <a href="{{url('/')}}"><img src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
   </div>
-<div class="main_logo" id="logo">
-    <a href="index.html"><img  style="width: auto; height: 65px;"  src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
-    <a href="index.html"><img  style="width: auto; height: 65px;" class="logo-inverse" src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>      
+<div class="main_logo" id="logo" style="width: 300px;">
+    <a href="{{url('/')}}"><img style="width: auto; height: 65px; float: right;" src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>
+    <a href="{{url('/')}}"><img style="width: auto; height: 65px; float: right;" class="logo-inverse" src="{{ asset('assets/images/BORONG-DAGING-LOGO.png') }}" alt=""></a>      
   </div>
     <nav class="navbar navbar-expand-lg navbar-light py-3">
       <div class="container-fluid">
@@ -57,11 +57,11 @@
         </div>
       </div>
     </nav>
-    <div class="search120" style="width: 65%">
+    <div class="search120" style="width: 45%;">
         <div class="ui search">
-            <div class="form-group ui left icon input swdh10 ">
+            <div class="form-group ui left input swdh10 ">
               <input class="prompt srch10" autocomplete="off" id="search" type="text" name="search" placeholder="Search for products.." value="{{ old('search') }}">
-                <div id="product-list" class="w-100"></div>
+                <div id="product-list"></div>
                 @csrf  
               {{-- <input class="prompt srch10 d-none" type="text" id="select-search" name="search"> --}}
                 {{-- <form method="post" action="{{ route('product.search') }}" class="ui left icon input swdh10">
