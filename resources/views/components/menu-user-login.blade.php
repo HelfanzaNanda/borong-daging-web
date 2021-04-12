@@ -7,8 +7,8 @@
                 Rewards</a>
             <a href="dashboard_my_wallet.html" class="user-item {{ Request::is('') ? 'active' : '' }}"><i class="uil uil-wallet"></i>My
                 Wallet</a>
-            <a href="dashboard_my_wishlist.html" class="user-item {{ Request::is('') ? 'active' : '' }}"><i class="uil uil-heart"></i>Shopping
-                Wishlist</a>
+            <a href="{{ url('/voucher') }}" class="user-item {{ Request::is('voucher') ? 'active' : '' }}">
+                <i class="uil uil-file-info-alt"></i>Voucher</a>
             <a href="{{ url('/delivery-address') }}" class="user-item {{ Request::is('delivery-address') ? 'active' : '' }}"><i class="uil uil-location-point"></i>Manajemen Lokasi</a>
             <a href="sign_in.html" class="user-item {{ Request::is('') ? 'active' : '' }}"><i class="uil uil-exit"></i>Logout</a>
         </div>

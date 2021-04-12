@@ -1,0 +1,34 @@
+p, h5{
+    margin: 0;
+    padding: 0;
+}
+
+.coupon{
+    background: grey;
+    border-left: 3px dotted white;
+    padding: 2rem 0;
+}
+.sort{
+    margin-right: 20px;
+}
+.tabs{
+    margin-bottom: 15px;
+}
+.tabs a {
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 14px;
+    /* font-weight: 600; */
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tabs a:hover {
+    border-bottom: 2px solid #dc3545;
+}
+
+.tabs a.active {
+    border-bottom: 2px solid #dc3545;
+}

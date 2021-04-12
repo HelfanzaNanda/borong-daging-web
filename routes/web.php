@@ -18,9 +18,6 @@ Route::delete('/cart/{id}', 'Cart\CartController@destroy');
 
 Route::get('/checkout', 'Checkout\CheckoutController@index');
 
-// Route::post('/delivery_address', 'DeliveryAddress\DeliveryAddressController@insertData');
-// Route::post('/delivery_address-change', 'DeliveryAddress\DeliveryAddressController@change');
-
 Route::get('/delivery-address', 'DeliveryAddress\DeliveryAddressController@index');
 Route::get('/delivery-address/add', 'DeliveryAddress\DeliveryAddressController@create');
 Route::get('/delivery-address/{id}/edit', 'DeliveryAddress\DeliveryAddressController@edit');
@@ -28,6 +25,8 @@ Route::get('/delivery-address/{id}/pin-point', 'DeliveryAddress\DeliveryAddressC
 Route::get('/delivery-address/{id}/delete', 'DeliveryAddress\DeliveryAddressController@delete');
 Route::post('/delivery-address', 'DeliveryAddress\DeliveryAddressController@insertData');
 Route::post('/delivery-address-change', 'DeliveryAddress\DeliveryAddressController@change');
+
+Route::get('voucher', 'Voucher\VoucherController@index');
 
 Route::post('/order', 'Order\OrderController@insertData');
 Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');
