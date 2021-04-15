@@ -232,13 +232,23 @@
     </div>
   </div>
   <div class="bs-canvas-footer">
+    <div class="panel-voucher" style="padding: 20px 20px 0;">
+      <h6>Masukkan Kode Voucher</h6>
+      <div class="d-flex justify-content-between align-items-center">
+        <div><input type="text" class="form-control" id="input-code-voucher"></div>
+        <div><button type="button" id="btn-use-voucher" class="btn text-white" style="background: #2b2f4c">Pakai</button></div>
+      </div>
+      
+    </div>
     <div class="cart-total-dil saving-total ">
       <h4>Ongkos Kirim</h4>
       <span>Rp 10,000</span>
     </div>
     <div class="main-total-cart">
       <h2>Total</h2>
-      <span>Rp {{number_format($total_price + 10000)}}</span>
+      <span id="total-price" data-total-price="{{ $total_price + 10000 }}">
+        Rp {{number_format($total_price + 10000)}}
+      </span>
     </div>
     <div class="checkout-cart">
       {{-- <a href="#" class="promo-code">Have a promocode?</a> --}}

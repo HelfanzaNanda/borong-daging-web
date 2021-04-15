@@ -27,6 +27,7 @@ Route::post('/delivery-address', 'DeliveryAddress\DeliveryAddressController@inse
 Route::post('/delivery-address-change', 'DeliveryAddress\DeliveryAddressController@change');
 
 Route::get('voucher', 'Voucher\VoucherController@index');
+Route::get('use-voucher/{code}', 'Voucher\VoucherController@useVoucher');
 
 Route::post('/order', 'Order\OrderController@insertData');
 Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');

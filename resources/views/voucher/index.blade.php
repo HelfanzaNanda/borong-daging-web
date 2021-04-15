@@ -138,7 +138,7 @@
 
     $( ".sort" ).click(function() {
         $( this ).toggleClass( "active" ).siblings().removeClass("active");
-    });
+    }).show(50);
 
 
 

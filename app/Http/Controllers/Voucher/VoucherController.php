@@ -24,4 +24,26 @@ class VoucherController extends Controller
             'dateNow' => $dateNow
         ]);
     }
+
+    public function useVoucher($code)
+    {
+        $voucher = Coupons::where('code', $code)
+        ->where('enabled', true)
+        ->whereDate('expires_at', now())->first();
+        if ($voucher) {
+            $voucher->update([ 'enabled' => false ]);
+            $data['code'] = $voucher->code;
+            $data['discount'] = $voucher->discount;
+            return response()->json([
+                'message' => 'success',
+                'status' => true,
+                'data' => $data
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'kode vocher sudah kadaluarsa atau sudah pernah digunakan',
+                'status' => false,
+            ]);
+        }
+    }
 }
