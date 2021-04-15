@@ -52,8 +52,8 @@
                 @forelse ($products as $product)
                     <div class="col-lg-3 col-md-6">
                         <div class="product-item mb-30">
-                            <a href="single_product_view.html" class="product-img">
-                                <img src="images/product/img-1.jpg" alt="">
+                            <a href="{{url('/product/'.\Str::slug($product['name'].'-'.$product['id']))}}" class="product-img">
+                                <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$product['media']['id'].'/'.$product['media']['file_name'] }}" alt="">
                                 <div class="product-absolute-options">
                                     <span class="offer-badge-1">{{ round((floatval($product->discount_price) / floatval($product->price)) * 100).'%'  }} off</span>
                                     {{-- <span class="offer-badge-1">{{ (10000 * 12000 ) / 100  }} off</span> --}}
