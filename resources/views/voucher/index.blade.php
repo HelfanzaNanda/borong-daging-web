@@ -55,7 +55,7 @@
                                 <a href="#" class="sort" data-filter="active" >Aktif</a>
                                 <a href="#" class="sort" data-filter="expired" >Expired</a>
                             </div>
-                            <div class="row">
+                            <div class="row justify-content-start">
                                 <x-empty-view-voucher display="none"/>
                                 @foreach ($vouchers as $key => $voucher)
                                 <div class="col-md-6 mb-3">
@@ -110,10 +110,6 @@
         document.execCommand("copy");
         document.body.removeChild(aux);
         alert("Copied the text: " + code.val());
-        // code.select();
-        // code.setSelectionRange(0, 99999)
-        // document.execCommand("copy");
-        // alert("Copied the text: " + code.value);
     })
 
     let vouchers = $('.voucher');

@@ -29,9 +29,8 @@ class VoucherController extends Controller
     {
         $voucher = Coupons::where('code', $code)
         ->where('enabled', true)
-        ->whereDate('expires_at', now())->first();
+        ->whereDate('expires_at', '>=', now())->first();
         if ($voucher) {
-            $voucher->update([ 'enabled' => false ]);
             $data['code'] = $voucher->code;
             $data['discount'] = $voucher->discount;
             return response()->json([

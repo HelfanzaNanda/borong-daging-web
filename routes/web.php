@@ -34,3 +34,4 @@ Route::get('/my-orders', 'Order\OrderController@myOrders')->name('myorders');
 
 Route::get('faq', 'Faq\FaqController@index')->name('faq');
 
+Route::get('/cuisine/{slug}', 'Cuisine\CuisineController@detail');

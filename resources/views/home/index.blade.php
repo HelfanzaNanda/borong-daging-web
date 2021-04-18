@@ -8,71 +8,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="owl-carousel offers-banner owl-theme">
-              <div class="item">
-                <div class="offer-item">
-                  <div class="offer-item-img">
-                    <div class="gambo-overlay"></div>
-                    <img src="{{ asset('assets/images/banners/offer-1.jpg') }}" alt="">
-                  </div>
-                  <div class="offer-text-dt">
-                    <div class="offer-top-text-banner">
-                      <p>6% Off</p>
-                      <div class="top-text-1">Buy More & Save More</div>
-                      <span>Fresh Vegetables</span>
+
+              @foreach ($slides as $slide)
+                <div class="item">
+                  <div class="offer-item">
+                    <div class="offer-item-img">
+                      <div class="gambo-overlay"></div>
+                      <img style="height: 205px; object-fit: {{ $slide->image_fit }}"
+                      src="{{ env('IMAGE_URL'). '/storage/app/public/' . $slide->image->id. '/' . $slide->image->file_name }}">
                     </div>
-                    <a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
+                    <div class="offer-text-dt">
+                      <div class="offer-top-text-banner" style="background: {{ $slide->background_color }}">
+                        <p style="color: {{ $slide->text_color }}">{{ $slide->text }}</p>
+                        {{-- <p>6% Off</p>
+                        <div class="top-text-1">Buy More & Save More</div>
+                        <span>Fresh Vegetables</span> --}}
+                      </div>
+                      <a href="#" class="Offer-shop-btn hover-btn" 
+                      style="background: {{ $slide->button_color }}; color : {{ $slide->text_color }}">{{ $slide->button }}</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="item">
-                <div class="offer-item">
-                  <div class="offer-item-img">
-                    <div class="gambo-overlay"></div>
-                    <img src="{{ asset('assets/images/banners/offer-2.jpg') }}" alt="">
-                  </div>
-                  <div class="offer-text-dt">
-                    <div class="offer-top-text-banner">
-                      <p>5% Off</p>
-                      <div class="top-text-1">Buy More & Save More</div>
-                      <span>Fresh Fruits</span>
-                    </div>
-                    <a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="offer-item">
-                  <div class="offer-item-img">
-                    <div class="gambo-overlay"></div>
-                    <img src="{{ asset('assets/images/banners/offer-3.jpg') }}" alt="">
-                  </div>
-                  <div class="offer-text-dt">
-                    <div class="offer-top-text-banner">
-                      <p>3% Off</p>
-                      <div class="top-text-1">Hot Deals on New Items</div>
-                      <span>Daily Essentials Eggs & Dairy</span>
-                    </div>
-                    <a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="offer-item">
-                  <div class="offer-item-img">
-                    <div class="gambo-overlay"></div>
-                    <img src="{{ asset('assets/images/banners/offer-4.jpg') }}" alt="">
-                  </div>
-                  <div class="offer-text-dt">
-                    <div class="offer-top-text-banner">
-                      <p>2% Off</p>
-                      <div class="top-text-1">Buy More & Save More</div>
-                      <span>Beverages</span>
-                    </div>
-                    <a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
+              @endforeach
+             
+             {{-- <div class="item">
                 <div class="offer-item">
                   <div class="offer-item-img">
                     <div class="gambo-overlay"></div>
@@ -87,7 +46,7 @@
                     <a href="#" class="Offer-shop-btn hover-btn">Shop Now</a>
                   </div>
                 </div>
-              </div>
+              </div> --}}
             </div>
         </div>
     </div>
@@ -202,6 +161,7 @@
               </a>
               <div class="product-text-dt">
                 <h4>{{$cuisine['name']}}</h4>
+                {{-- <a href="{{url('/cuisine/'.\Str::slug($cuisine['name'].'-'.$cuisine['id']))}}">{{$cuisine['name']}}</a> --}}
                 <p>{!! $cuisine['description'] !!}</p>
               </div>
             </div>

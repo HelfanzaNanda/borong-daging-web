@@ -62,7 +62,7 @@
       <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
       
       <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.js') }}"></script>
-      {{-- <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script> --}}
+      <script src="{{ asset('assets/vendor/semantic/semantic.min.js') }}"></script>
       <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
       <script src="{{ asset('assets/js/custom.js') }}"></script>
       <script src="{{ asset('assets/js/offset_overlay.js') }}"></script>
@@ -70,7 +70,9 @@
       <script src="{{ asset('assets/js/product.thumbnail.slider.js') }}"></script>
       <script src="{{ asset('assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
       <x-ajax/>
-      
+      <script>
+        $('.owl-carousel').trigger('stop.owl.autoplay')
+      </script>
 
       <script type="text/javascript">
         $('form#form-login').submit( function( e ) {
