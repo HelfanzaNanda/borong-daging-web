@@ -35,7 +35,7 @@
                             <div class="row">
                                <div class="col-lg-12">
                                   <form class="">
-                                     <div class="form-group">
+                                     {{-- <div class="form-group">
                                         <div class="product-radio">
                                            <ul class="product-now">
                                               <li>
@@ -52,23 +52,27 @@
                                               </li>
                                            </ul>
                                         </div>
-                                     </div>
+                                     </div> --}}
                                      <div class="address-fieldset">
                                         <div class="row">
                                            <div class="col-lg-12 col-md-12">
                                               <div class="form-group">
                                                  <label class="control-label">Alamat*</label>
-                                                 <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{isset($delivery_address['address']) && $delivery_address['address'] ? $delivery_address['address'] : '-'}}">
-                                                 <input type="hidden" id="address-id" value="{{$delivery_address ? $delivery_address['id'] : '0'}}">
+                                                 <select name="" id="delivery_address_id" class="form-control">
+                                                    <option value="" selected disabled>-- Pilih Alamat --</option>
+                                                    @foreach ($delivery_addresses as $address)
+                                                        <option value="{{ $address->id }}">{{ $address->address }}</option>
+                                                    @endforeach
+                                                 </select>
+                                                 {{-- <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{isset($delivery_address['address']) && $delivery_address['address'] ? $delivery_address['address'] : '-'}}"> --}}
+                                                 {{-- <input type="hidden" id="address-id" value="{{$delivery_address ? $delivery_address['id'] : '0'}}"> --}}
                                                  {{-- <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{$delivery_address['address']}}"> --}}
                                               </div>
                                            </div>
                                            <div class="col-lg-12 col-md-12">
                                               <div class="form-group">
                                                  <div class="address-btns">
-                                                    <button type="button" class="save-btn14 hover-btn" id="address-save">
-                                                       {{ $delivery_address ? 'Update' : 'Save'  }}
-                                                    </button>
+                                                    <a href="{{ url('delivery-address') }}" class="btn btn-primary">Tambah atau Update Alamat</a>
                                                     <a class="collapsed ml-auto next-btn16 hover-btn" role="button" data-toggle="collapse" data-parent="#checkout_wizard" href="#collapseTwo"> Next </a>
                                                  </div>
                                               </div>
@@ -225,10 +229,12 @@
                 </div>
                 <div class="right-cart-dt-body">
 					@php
+                  $price = 0;
 						$total_price = 0;
 					@endphp
                 	@foreach($carts as $cart)
 					@php
+                  $price = $cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100);
 						$total_price = $total_price + $cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100);
 					@endphp
 	                   <div class="cart-item border_radius">
@@ -249,10 +255,29 @@
                       <h4>Delivery Charges</h4>
                       <span>Rp 10,000</span>
                    </div>
+                   <h4>Discount</h4>
+                   @php
+                       $discount_prices = 0;
+
+                   @endphp
+                   
+                   @foreach ($coupons_used_by_user as $key => $coupon)
+                     <input type="hidden" id="coupon_codes" class="coupon-code" value="{{ $coupon->code }}">
+                     <div class="cart-total-dil pt-3">
+                        <h4>{{ $coupon->code }}</h4>
+                        @php
+                            $discount_price = (int)($price * ($coupon->discount / 100));
+                            $discount_prices += $discount_price;
+                        @endphp
+                        <span id="disc-{{ $key }}" data-disc-price="{{ $discount_price }}">
+                           Rp - {{ number_format($discount_price)  }}
+                        </span>
+                     </div>    
+                   @endforeach
                 </div>
                 <div class="main-total-cart">
                    <h2>Total</h2>
-                   <span>Rp {{number_format($total_price + 10000)}}</span>
+                   <span>Rp {{number_format(($total_price - $discount_prices) + 10000)}}</span>
                 </div>
                 <div class="payment-secure">
                    <i class="uil uil-padlock"></i>Secure checkout
@@ -276,7 +301,14 @@
       	$.ajax({
           url: BASE_URL+'/order',
           type: 'POST',
-          data: {'hint': $("input[name='hint']:checked").val(), 'deliver_time': $("input[name='deliver_time']:checked").val(), 'payment_method': $("input[name='paymentmethod']:checked").val(), '_token': '{{ csrf_token() }}'},
+          data: {
+             'coupon_codes[]' : $(".coupon-code").map((i, e) => e.value).get(),
+             'delivery_address_id' : $('#delivery_address_id').val(),
+             'hint': $("input[name='hint']:checked").val(), 
+             'deliver_time': $("input[name='deliver_time']:checked").val(), 
+             'payment_method': $("input[name='paymentmethod']:checked").val(), 
+             '_token': '{{ csrf_token() }}'
+         },
           dataType: 'json',
           success: function( data ) {
             console.log(data);

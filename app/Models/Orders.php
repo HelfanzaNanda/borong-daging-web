@@ -190,15 +190,30 @@ class Orders extends Model
             'active' => 1,
             'driver_id' => Drivers::where('available', 1)->first()->value('user_id'),
             // 'delivery_address_id' => DeliveryAddresses::where('user_id', Session::get('_id'))->first()->value('id'),
-            'delivery_address_id' => 16,
+            //'delivery_address_id' => 16,
+            'delivery_address_id' => $params['delivery_address_id'],
             'payment_id' => $insert_payment->id,
         ]);
+
+        $res = [];
+        if (isset($params['coupon_codes'])) {
+            foreach ($params['coupon_codes'] as $code) {
+                array_push($res, $code);
+                CouponHistories::create([
+                    'coupon_code' => $code,
+                    'user_id' => Session::get('_id'),
+                    'order_id' => $insert_order->id,
+                    'date' => now()
+                ]);
+            }
+        }
 
         $get_restaurant = Restaurants::get()->random(1)->all()[0]->id;
 
         $fs = [];
         foreach($carts as $cart_for_stock) {
-            $foods = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])->pluck('name')->first())
+            $foods = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])
+            ->pluck('name')->first())
             ->where('restaurant_id', $get_restaurant)->first();
             $decrease_stock = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])->value('name'))->where('restaurant_id', $get_restaurant)->decrement('weight', $cart_for_stock['quantity']);
             FoodOrders::create([

@@ -251,8 +251,15 @@
       </span>
     </div>
     <div class="checkout-cart">
+      <form action="{{ route('checkout.index') }}" method="POST">
+        @csrf
+        <div class="form-voucher">
+          <input type="hidden" id="coupon-code" name="coupon_code">
+          <button type="submit" class="btn hover-btn text-white" style="background: #f55d2c; padding: 10px 15px;">Proceed to Checkout</button>
+        </div>
+      </form>
       {{-- <a href="#" class="promo-code">Have a promocode?</a> --}}
-      <a href="{{url('/')}}/checkout" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+      {{-- <a href="{{url('/')}}/checkout" class="cart-checkout-btn hover-btn">Proceed to Checkout</a> --}}
     </div>
   </div>
 </div>

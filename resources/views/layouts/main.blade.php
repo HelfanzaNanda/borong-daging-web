@@ -70,9 +70,6 @@
       <script src="{{ asset('assets/js/product.thumbnail.slider.js') }}"></script>
       <script src="{{ asset('assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
       <x-ajax/>
-      <script>
-        $('.owl-carousel').trigger('stop.owl.autoplay')
-      </script>
 
       <script type="text/javascript">
         $('form#form-login').submit( function( e ) {
@@ -279,6 +276,8 @@
                   $('.panel-voucher').append(showDiscount(res.data.code, discount))
                   $('#total-price').text('Rp '+convertRupiah(total))
                   $('#total-price').data('total-price', total)
+                  let coupon_code = $('#coupon-code').val()
+                  $('#coupon-code').val(coupon_code ? coupon_code + ','+ res.data.code : res.data.code)
               }else{
                   swal({
                     title: "Gagal",

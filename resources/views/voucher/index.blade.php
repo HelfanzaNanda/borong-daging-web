@@ -117,17 +117,16 @@
         e.preventDefault()
         let customType = $( this ).data('filter');
         if (customType == "all") {
-            vouchers.show(50);    
+            vouchers.parent().show(50);    
         }else{
-            vouchers.hide().filter(function () {
-                return $(this).data('category') === customType;
+            vouchers.parent().hide().filter(function () {
+                return $(this).children().data('category') === customType;
             }).show(50);
         }
         let countVoucherShow = vouchers.filter(function() {
             return $(this).css('display') !== 'none';
         }).length;
         if (countVoucherShow == 0) {
-            console.log(countVoucherShow);
             $('.empty-view').attr('display', 'block')
         }
     });
