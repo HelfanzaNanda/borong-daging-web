@@ -232,34 +232,32 @@
     </div>
   </div>
   <div class="bs-canvas-footer">
-    <div class="panel-voucher" style="padding: 20px 20px 0;">
+    {{-- <div class="panel-voucher" style="padding: 20px 20px 0;">
       <h6>Masukkan Kode Voucher</h6>
       <div class="d-flex justify-content-between align-items-center">
         <div><input type="text" class="form-control" id="input-code-voucher"></div>
         <div><button type="button" id="btn-use-voucher" class="btn text-white" style="background: #2b2f4c">Pakai</button></div>
       </div>
       
-    </div>
+    </div> --}}
     <div class="cart-total-dil saving-total ">
       <h4>Ongkos Kirim</h4>
       <span>Rp 10,000</span>
     </div>
     <div class="main-total-cart">
       <h2>Total</h2>
-      <span id="total-price" data-total-price="{{ $total_price + 10000 }}">
-        Rp {{number_format($total_price + 10000)}}
-      </span>
+      <span> Rp {{number_format($total_price + 10000)}} </span>
     </div>
     <div class="checkout-cart">
-      <form action="{{ route('checkout.index') }}" method="POST">
+      {{-- <form action="{{ route('checkout.index') }}" method="POST">
         @csrf
         <div class="form-voucher">
           <input type="hidden" id="coupon-code" name="coupon_code">
           <button type="submit" class="btn hover-btn text-white" style="background: #f55d2c; padding: 10px 15px;">Proceed to Checkout</button>
         </div>
-      </form>
+      </form> --}}
       {{-- <a href="#" class="promo-code">Have a promocode?</a> --}}
-      {{-- <a href="{{url('/')}}/checkout" class="cart-checkout-btn hover-btn">Proceed to Checkout</a> --}}
+      <a href="{{url('/')}}/checkout" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
     </div>
   </div>
 </div>

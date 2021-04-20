@@ -13,16 +13,16 @@ use Session;
 
 class CheckoutController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $coupons = [];
-        if ($request->coupon_code) {
-            $coupon_arr = explode(',', $request->coupon_code);
-            foreach ($coupon_arr as $coupon_code) {
-                $coupon = Coupons::select(['code', 'discount', 'discount_type'])->where('code', $coupon_code)->first();
-                array_push($coupons, $coupon);
-            }
-        }
+        // $coupons = [];
+        // if ($request->coupon_code) {
+        //     $coupon_arr = explode(',', $request->coupon_code);
+        //     foreach ($coupon_arr as $coupon_code) {
+        //         $coupon = Coupons::select(['code', 'discount', 'discount_type'])->where('code', $coupon_code)->first();
+        //         array_push($coupons, $coupon);
+        //     }
+        // }
     	$carts = Carts::where('user_id', Session::get('_id'))->get();
     	// $delivery_address = DeliveryAddresses::where('user_id', Session::get('_id'))
         // ->where('description', 'Home')->first();
@@ -31,7 +31,6 @@ class CheckoutController extends Controller
         return view('checkout.index', [
             'carts' => $carts,
             'delivery_addresses' => $delivery_addresses,
-            'coupons_used_by_user' => $coupons
         ]);
     }
 }

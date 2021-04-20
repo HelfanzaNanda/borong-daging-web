@@ -229,12 +229,10 @@
                 </div>
                 <div class="right-cart-dt-body">
 					@php
-                  $price = 0;
 						$total_price = 0;
 					@endphp
                 	@foreach($carts as $cart)
 					@php
-                  $price = $cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100);
 						$total_price = $total_price + $cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100);
 					@endphp
 	                   <div class="cart-item border_radius">
@@ -256,34 +254,26 @@
                       <span>Rp 10,000</span>
                    </div>
                    <h4>Discount</h4>
-                   @php
-                       $discount_prices = 0;
-
-                   @endphp
-                   
-                   @foreach ($coupons_used_by_user as $key => $coupon)
-                     <input type="hidden" id="coupon_codes" class="coupon-code" value="{{ $coupon->code }}">
-                     <div class="cart-total-dil pt-3">
-                        <h4>{{ $coupon->code }}</h4>
-                        @php
-                            $discount_price = (int)($price * ($coupon->discount / 100));
-                            $discount_prices += $discount_price;
-                        @endphp
-                        <span id="disc-{{ $key }}" data-disc-price="{{ $discount_price }}">
-                           Rp - {{ number_format($discount_price)  }}
-                        </span>
-                     </div>    
-                   @endforeach
+                   <div class="panel-voucher"></div>
+                   <input type="hidden" id="coupon_codes" class="coupon-code">
                 </div>
                 <div class="main-total-cart">
                    <h2>Total</h2>
-                   <span>Rp {{number_format(($total_price - $discount_prices) + 10000)}}</span>
+                   <span id="total-price" data-total-price="{{ $total_price + 10000 }}">Rp {{number_format($total_price + 10000)}}</span>
                 </div>
                 <div class="payment-secure">
                    <i class="uil uil-padlock"></i>Secure checkout
                 </div>
              </div>
-             <a href="#" class="promo-link45">Have a promocode?</a>
+             <div class="total-checkout-group">
+               <h4>Masukkan Kode Voucher</h4>
+               <div class="d-flex justify-content-between align-items-center">
+                  <div><input type="text" class="form-control" id="input-code-voucher"></div>
+                  <div><button type="button" id="btn-use-voucher" class="btn text-white" style="background: #2b2f4c">Pakai</button></div>
+                </div>
+             </div>
+             
+             {{-- <a href="#" class="promo-link45">Have a promocode?</a> --}}
              <div class="checkout-safety-alerts">
                 <p><i class="uil uil-sync"></i>100% Replacement Guarantee</p>
                 <p><i class="uil uil-check-square"></i>100% Genuine Products</p>
@@ -302,7 +292,7 @@
           url: BASE_URL+'/order',
           type: 'POST',
           data: {
-             'coupon_codes[]' : $(".coupon-code").map((i, e) => e.value).get(),
+             'coupon_codes[]' : $(".coupon-code").val().split(','),
              'delivery_address_id' : $('#delivery_address_id').val(),
              'hint': $("input[name='hint']:checked").val(), 
              'deliver_time': $("input[name='deliver_time']:checked").val(), 
@@ -396,5 +386,85 @@
           }       
       });
    })
+
+
+   $(document).on('click', '#btn-use-voucher', function (e) { 
+     e.preventDefault()
+     const voucher = $('#input-code-voucher').val()
+     let couponSame = $('.coupons').filter(function () { 
+        return $(this).text() === voucher
+     })
+     if (couponSame.length > 0) {
+       $('#input-code-voucher').val('')
+       swal({
+             title: "Gagal",
+             text: "voucher sudah di tambahkan",
+             showConfirmButton: true,
+             confirmButtonColor: '#0760ef',
+             type:"error",
+             html: true
+         });
+     }else{
+         $.ajax({
+               type: 'get',
+               url: BASE_URL+'/use-voucher/'+voucher,
+               cache: false,
+               contentType: false,
+               processData: false,
+               dataType: 'json',
+               beforeSend: function() {
+                  
+               },
+               success: function(res) {
+                  if (res.status) {
+                     $('#input-code-voucher').val('')
+                     const total_price = $('#total-price').data('total-price');
+                     const discount = total_price * (res.data.discount / 100)
+                     const total = total_price - discount
+                     $('.panel-voucher').append(showDiscount(res.data.code, discount))
+                     $('#total-price').text('Rp '+convertRupiah(total))
+                     $('#total-price').data('total-price', total)
+                     let coupon_code = $('.coupon-code').val()
+                     $('.coupon-code').val(coupon_code ? coupon_code + ','+ res.data.code : res.data.code)
+                  }else{
+                     swal({
+                        title: "Gagal",
+                        text: res.message,
+                        showConfirmButton: true,
+                        confirmButtonColor: '#0760ef',
+                        type:"error",
+                        html: true
+                     });
+                  }
+               }
+         })
+     }
+   })
+
+     function showDiscount(code, discount) { 
+       let cols = '';
+           cols += '<div class="cart-total-dil pt-3">'
+           cols +=   '<h4 class="coupons">'+code+'</h4>'
+           cols +=   '<span data-disc-price="'+discount+'">'
+           cols +=   'Rp. - '+convertRupiah(discount)+''
+           cols +=   '</span>'
+           cols += '</div>'
+       return cols
+     }
+     
+     function convertRupiah(number) { 
+         let number_string = number.toString(),
+            sisa 	= number_string.length % 3,
+            rupiah 	= number_string.substr(0, sisa),
+            ribuan 	= number_string.substr(sisa).match(/\d{3}/g);   
+         if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+         }
+         return rupiah
+     }
+   //   function convertRupiah(number) { 
+   //       return (number/1000).toFixed(3)
+   //   }
 </script>
 @endsection

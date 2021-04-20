@@ -16,7 +16,7 @@ Route::get('/category/{slug}', 'Product\ProductController@productsByCategory');
 Route::post('/cart', 'Cart\CartController@insertData');
 Route::delete('/cart/{id}', 'Cart\CartController@destroy');
 
-Route::post('/checkout', 'Checkout\CheckoutController@index')->name('checkout.index');
+Route::get('/checkout', 'Checkout\CheckoutController@index')->name('checkout.index');
 
 Route::get('/delivery-address', 'DeliveryAddress\DeliveryAddressController@index');
 Route::get('/delivery-address/add', 'DeliveryAddress\DeliveryAddressController@create');

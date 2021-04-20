@@ -209,12 +209,14 @@ class Orders extends Model
         }
 
         $get_restaurant = Restaurants::get()->random(1)->all()[0]->id;
-
+        
         $fs = [];
         foreach($carts as $cart_for_stock) {
             $foods = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])
-            ->pluck('name')->first())
-            ->where('restaurant_id', $get_restaurant)->first();
+            ->pluck('name')->first())->first();
+            // $foods = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])
+            // ->pluck('name')->first())
+            // ->where('restaurant_id', $get_restaurant)->first();
             $decrease_stock = Foods::where('name', MeatForSale::where('id', $cart_for_stock['food_id'])->value('name'))->where('restaurant_id', $get_restaurant)->decrement('weight', $cart_for_stock['quantity']);
             FoodOrders::create([
                 'price' => $cart_for_stock['meat_for_sale']['discount_price'],

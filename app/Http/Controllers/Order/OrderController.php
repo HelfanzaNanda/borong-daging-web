@@ -17,7 +17,6 @@ class OrderController extends Controller
     public function insertData(Request $request)
     {
         $params = $request->all();
-        //return json_encode($params);
         return Orders::createOrUpdate($params, $request->method(), $request);
     }
 

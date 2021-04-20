@@ -254,57 +254,7 @@
       </script>
 
       {{-- use voucher code --}}
-      <script>
-        $(document).on('click', '#btn-use-voucher', function (e) { 
-          e.preventDefault()
-          const voucher = $('#input-code-voucher').val()
-          $.ajax({
-            type: 'get',
-            url: BASE_URL+'/use-voucher/'+voucher,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            beforeSend: function() {
-
-            },
-            success: function(res) {
-              if (res.status) {
-                  const total_price = $('#total-price').data('total-price');
-                  const discount = total_price * (res.data.discount / 100)
-                  const total = total_price - discount
-                  $('.panel-voucher').append(showDiscount(res.data.code, discount))
-                  $('#total-price').text('Rp '+convertRupiah(total))
-                  $('#total-price').data('total-price', total)
-                  let coupon_code = $('#coupon-code').val()
-                  $('#coupon-code').val(coupon_code ? coupon_code + ','+ res.data.code : res.data.code)
-              }else{
-                  swal({
-                    title: "Gagal",
-                    text: res.message,
-                    showConfirmButton: true,
-                    confirmButtonColor: '#0760ef',
-                    type:"error",
-                    html: true
-                  });
-              }
-            }
-          })
-         })
-
-          function showDiscount(code, discount) { 
-            let cols = '';
-                cols += '<div class="d-flex justify-content-between align-items-center">'
-                cols += '  <div>Discount <span style="color: grey">'+code+'</span></div>'
-                cols += '  <div><p>Rp. -'+convertRupiah(discount)+'</p></div>'
-                cols += '</div>'
-            return cols
-          }
-
-          function convertRupiah(number) { 
-              return (number/1000).toFixed(3)
-           }
-      </script>
+      
       
       @yield('additionalScript')
     </div>
