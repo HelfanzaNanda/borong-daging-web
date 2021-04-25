@@ -34,6 +34,7 @@
                          <div class="checout-address-step">
                             <div class="row">
                                <div class="col-lg-12">
+                                 <input type="hidden" name="" id="weight" value="{{ $weight }}">
                                   <form class="">
                                      {{-- <div class="form-group">
                                         <div class="product-radio">
@@ -64,6 +65,7 @@
                                                         <option value="{{ $address->id }}">{{ $address->address }}</option>
                                                     @endforeach
                                                  </select>
+                                                 
                                                  {{-- <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{isset($delivery_address['address']) && $delivery_address['address'] ? $delivery_address['address'] : '-'}}"> --}}
                                                  {{-- <input type="hidden" id="address-id" value="{{$delivery_address ? $delivery_address['id'] : '0'}}"> --}}
                                                  {{-- <input id="address-street" name="address_street" type="text" placeholder="Street Address" class="form-control input-md" value="{{$delivery_address['address']}}"> --}}
@@ -253,7 +255,7 @@
                 <div class="total-checkout-group">
                    <div class="cart-total-dil pt-3">
                       <h4>Delivery Charges</h4>
-                      <span>Rp 10,000</span>
+                      <span id="lable-fee">-</span>
                    </div>
                    <h4>Discount</h4>
                    @php
@@ -277,7 +279,8 @@
                 </div>
                 <div class="main-total-cart">
                    <h2>Total</h2>
-                   <span>Rp {{number_format(($total_price - $discount_prices) + 10000)}}</span>
+                   {{-- <span>Rp {{number_format(($total_price - $discount_prices))}}</span> --}}
+                   <span id="lable-total">{{number_format(($total_price - $discount_prices))}}</span>
                 </div>
                 <div class="payment-secure">
                    <i class="uil uil-padlock"></i>Secure checkout
@@ -297,6 +300,7 @@
 
 @section('additionalScript')
 <script type="text/javascript">
+var deliveryFee = 0;
    $(document).on('click', '#place-order', function(e){
       	$.ajax({
           url: BASE_URL+'/order',
@@ -307,6 +311,7 @@
              'hint': $("input[name='hint']:checked").val(), 
              'deliver_time': $("input[name='deliver_time']:checked").val(), 
              'payment_method': $("input[name='paymentmethod']:checked").val(), 
+             'delivery_fee': deliveryFee,
              '_token': '{{ csrf_token() }}'
          },
           dataType: 'json',
@@ -396,5 +401,57 @@
           }       
       });
    })
+
+   $('#delivery_address_id').on('change', function(){
+      var addressText = $(this).find(":selected", this).text()
+      $.ajax({
+         type: 'POST',
+         url: "{{ asset('api/get-price') }}",
+         data: JSON.stringify({
+            weight: {{ $weight }},
+            address: $(this).find(":selected", this).text()
+         }),
+         headers: {
+            "Content-Type":"application/json",
+            "Accept":"application/json",
+         },
+         success : function(data){
+            if(data.status == 'success'){
+               var subtotal = parseInt("{{($total_price - $discount_prices)}}")
+               $('#lable-fee').empty()
+               $('#lable-fee').append(formatRupiah(data.price.toString(), 'Rp '))
+               deliveryFee = data.price
+               var total = subtotal + data.price
+               $('#lable-total').empty()
+               $('#lable-total').append(formatRupiah(total.toString(), 'Rp '))
+
+               
+            }else{
+               swal(
+                  'Maaf !',
+                  data.message,
+                  'error'
+               )
+            }
+         }
+      })
+   })
+
+   function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split   		= number_string.split(','),
+      sisa     		= split[0].length % 3,
+      rupiah     		= split[0].substr(0, sisa),
+      ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+   
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if(ribuan){
+         separator = sisa ? '.' : '';
+         rupiah += separator + ribuan.join(',');
+      }
+   
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
+   }
 </script>
 @endsection
