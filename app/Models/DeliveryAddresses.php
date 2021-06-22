@@ -92,6 +92,10 @@ class DeliveryAddresses extends Model
 
         $params['user_id'] = Session::get('_id');
 
+        $params['address'] = $params['address'].', Kota '.$params['city'].', '.$params['province'];
+        unset($params['city']);
+        unset($params['province']);
+        
         DB::beginTransaction();
         $filename = null;
 

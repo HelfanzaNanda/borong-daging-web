@@ -243,10 +243,12 @@
     <div class="cart-total-dil saving-total ">
       <h4>Ongkos Kirim</h4>
       <span>Rp 10,000</span>
-    </div>
+    </div> --}}
     <div class="main-total-cart">
       <h2>Total</h2>
-      <span> Rp {{number_format($total_price + 10000)}} </span>
+      <span id="total-price" data-total-price="{{ $total_price}}">
+        Rp {{number_format($total_price)}}
+      </span>
     </div>
     <div class="checkout-cart">
       {{-- <form action="{{ route('checkout.index') }}" method="POST">

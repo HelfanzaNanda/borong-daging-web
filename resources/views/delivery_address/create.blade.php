@@ -33,7 +33,7 @@
                         <h5 class="card-title text-white">Tambah Alamat</h5>
                     </div>
                     <div class="card-body">
-                        <form id="add-form" action="" method="POST">
+                        <form id="add-form" action="{{ route('delivery.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -48,6 +48,14 @@
                                         <input type="text" class="form-control" name="latitude" id="lat" readonly>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="province">Nama Provinsi</label>
+                                <select name="province" id="province" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="province">Nama Kota</label>
+                                <select name="city" id="city" class="form-control"></select>
                             </div>
                             <div class="form-group">
                                 <label for="">Nama Tempat</label>
@@ -71,6 +79,43 @@
 @section('additionalScript')
 <script>
     const defaultLocation = [106.82614247655886, -6.177229876413122]
+
+    var BASE_URLX = 'https://data-alamat.herokuapp.com/api/';
+    $(document).ready(function(){
+        $(document).ready(function(){
+            $.ajax({
+                type : 'GET',
+                url : BASE_URLX+'provinsi',
+                success : function(data){
+                    province = $('#province');
+                    province.empty();
+                    province.append('<option value="" selected disable>Pilih Provinsi</option>')
+                    $.each(data, function(index, value){
+                        province.append('<option value="'+value.nama_provinsi+'" data-province-code="'+value.id_provinsi+'">'+value.nama_provinsi+"</option>");
+                    })
+                    $('#province').select2({width:'100%'});
+                }
+            });
+        })
+    })
+
+    $('#province').on('change', function(){
+        var id_provinsi = $(this).find(":selected", this).data('province-code')
+        $.ajax({
+            type: "GET",
+            url: BASE_URLX+"kota/"+id_provinsi,
+            success: function(data){
+                area = $('#city');
+                area.empty();
+                area.append('<option value="" selected disable>Pilih Kota/Kabupaten</option>')
+                $.each(data, function(index, value){
+                    area.append('<option value="'+value.nama_kota+'" data-area-code="'+value.id_kota+'">'+value.nama_kota+"</option>");
+                })
+                $('#city').select2({widht : '100%'});
+            }
+        })
+    })
+
     mapboxgl.accessToken = '{{ env('MAPBOX_KEY') }}';
     let map = new mapboxgl.Map({
         container: 'map',
@@ -155,5 +200,7 @@
             }
         }
     });
+
+
 </script>
 @endsection

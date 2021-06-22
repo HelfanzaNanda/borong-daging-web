@@ -185,7 +185,7 @@ class Orders extends Model
             'user_id' => Session::get('_id'),
             'order_status_id' => 1,
             'tax' => 0,
-            'delivery_fee' => $total_delivery_price,
+            'delivery_fee' => $params['delivery_fee'],
             'hint' => 'Dikirim Tanggal '.$params['hint'].' Jam '.$params['deliver_time'],
             'active' => 1,
             'driver_id' => Drivers::where('available', 1)->first()->value('user_id'),

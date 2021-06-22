@@ -23,7 +23,7 @@ Route::get('/delivery-address/add', 'DeliveryAddress\DeliveryAddressController@c
 Route::get('/delivery-address/{id}/edit', 'DeliveryAddress\DeliveryAddressController@edit');
 Route::get('/delivery-address/{id}/pin-point', 'DeliveryAddress\DeliveryAddressController@pinPoint');
 Route::get('/delivery-address/{id}/delete', 'DeliveryAddress\DeliveryAddressController@delete');
-Route::post('/delivery-address', 'DeliveryAddress\DeliveryAddressController@insertData');
+Route::post('/delivery-address', 'DeliveryAddress\DeliveryAddressController@insertData')->name('delivery.store');
 Route::post('/delivery-address-change', 'DeliveryAddress\DeliveryAddressController@change');
 
 Route::get('voucher', 'Voucher\VoucherController@index');
