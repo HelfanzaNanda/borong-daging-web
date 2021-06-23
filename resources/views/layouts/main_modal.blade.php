@@ -221,8 +221,8 @@
               <input type="button" value="+" class="plus plus-btn">
             </div> --}}
             <div class="cart-item-price">Rp
-              {{number_format($row['meat_for_sale']['discount_price'] * ($row['quantity']/100))}} <span>Rp
-                {{number_format($row['meat_for_sale']['price'] * ($row['quantity']/100))}}</span></div>
+              {{number_format($row['meat_for_sale']['discount_price'] * ($row['quantity']/100), 0, '.', '.')}} <span>Rp
+                {{number_format($row['meat_for_sale']['price'] * ($row['quantity']/100), 0, '.', '.')}}</span></div>
           </div>
           <button type="button" class="cart-close-btn" id="delete-cart" data-id="{{$row['id']}}"><i
               class="uil uil-multiply"></i></button>
@@ -240,7 +240,7 @@
       </div>
       
     </div> --}}
-    <div class="cart-total-dil saving-total ">
+    {{-- <div class="cart-total-dil saving-total ">
       <h4>Ongkos Kirim</h4>
       <span>Rp 10,000</span>
     </div> --}}
