@@ -3,13 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use Session;
-use App\Models\Foods;
-use App\Models\Media;
-use App\Models\Slides;
-use App\Models\Coupons;
-use App\Models\Cuisines;
-use App\Models\Categories;
-use App\Models\MeatForSale;
+use App\Models\{Foods, Media, Slides, Coupons, Cuisines, Categories, MeatForSale};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -54,6 +48,7 @@ class HomeController extends Controller
 
         return view('home.'.__FUNCTION__, 
         compact('categories', 'featured_products',
-		 'cuisines', 'slides', 'result_coupons', 'coupon'));
+		 'cuisines', 'slides', 
+		 'result_coupons', 'coupon'));
     }
 }

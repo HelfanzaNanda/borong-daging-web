@@ -78,4 +78,9 @@ class Coupons extends Model
     // Functions ...
 
     // Relations ...
+
+	public function medias()
+	{
+		return $this->morphMany(Media::class, 'model', 'model_type', 'model_id');
+	}
 }

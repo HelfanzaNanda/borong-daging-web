@@ -93,7 +93,6 @@
 				@else
                 	<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
 				@endif
-
               </div>
             </div>
           </div>
@@ -223,7 +222,6 @@
 				@else
                 	<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
 				@endif
-
               </div>
             </div>
           </div>
@@ -305,7 +303,6 @@
 				@else
                 	<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
 				@endif
-
               </div>
             </div>
           </div>
