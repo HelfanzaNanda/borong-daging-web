@@ -1,4 +1,4 @@
-cu@extends('layouts.main')
+@extends('layouts.main')
 
 @section('title', 'Checkout')
 
@@ -244,7 +244,7 @@ cu@extends('layouts.main')
 	                      </div>
 	                      <div class="cart-text">
 	                         <h4>{{$cart['meat_for_sale']['name']}}</h4>
-	                         <div class="cart-item-price">Rp {{number_format($cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100))}} <span>Rp {{number_format($cart['meat_for_sale']['price'] * ($cart['quantity']/100))}}</span></div>
+	                         <div class="cart-item-price">Rp {{number_format($cart['meat_for_sale']['discount_price'] * ($cart['quantity']/100), 0, '.', '.')}} <span>Rp {{number_format($cart['meat_for_sale']['price'] * ($cart['quantity']/100), 0, '.', '.')}}</span></div>
 	                         <button type="button" class="cart-close-btn" id="delete-cart" data-id="{{$cart['id']}}"><i class="uil uil-multiply"></i></button>
 	                      </div>
 	                   </div>
@@ -259,10 +259,11 @@ cu@extends('layouts.main')
                    <div class="panel-voucher"></div>
                    <input type="hidden" id="coupon_codes" class="coupon-code">
                 </div>
-                <div class="main-total-cart">
+                <div class="main-total-cart total">
                    <h2>Total</h2>
                    {{-- <span>Rp {{number_format(($total_price - $discount_prices))}}</span> --}}
-                   <span id="lable-total">{{number_format(($total_price - $discount_prices))}}</span>
+                   {{-- <span id="lable-total">{{number_format(($total_price - $discount_prices))}}</span> --}}
+				   <span id="total-price" data-total-price="{{ $total_price }}">Rp {{number_format($total_price, 0, '.', '.')}}</span>
                 </div>
                 <div class="payment-secure">
                    <i class="uil uil-padlock"></i>Secure checkout
@@ -426,8 +427,8 @@ var deliveryFee = 0;
                      const discount = total_price * (res.data.discount / 100)
                      const total = total_price - discount
                      $('.panel-voucher').append(showDiscount(res.data.code, discount))
-                     $('#total-price').text('Rp '+convertRupiah(total))
-                     $('#total-price').data('total-price', total)
+                     $('span#total-price').text('Rp '+convertRupiah(total))
+                     $('span#total-price').data('total-price', total)
                      let coupon_code = $('.coupon-code').val()
                      $('.coupon-code').val(coupon_code ? coupon_code + ','+ res.data.code : res.data.code)
                   }else{
@@ -486,13 +487,14 @@ var deliveryFee = 0;
          },
          success : function(data){
             if(data.status == 'success'){
-               var subtotal = parseInt("{{($total_price - $discount_prices)}}")
+				const subtotal = $('#total-price').data('total-price');
                $('#lable-fee').empty()
-               $('#lable-fee').append(formatRupiah(data.price.toString(), 'Rp '))
-               deliveryFee = data.price
+               $('#lable-fee').text('Rp '+convertRupiah(data.price))
+               //deliveryFee = data.price
                var total = subtotal + data.price
-               $('#lable-total').empty()
-               $('#lable-total').append(formatRupiah(total.toString(), 'Rp '))
+
+			    $('span#total-price').text('Rp '+convertRupiah(total))
+				$('span#total-price').data('total-price', total)
 
                
             }else{

@@ -14,7 +14,7 @@ use Session;
 
 class CheckoutController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // $coupons = [];
         // if ($request->coupon_code) {
@@ -36,7 +36,7 @@ class CheckoutController extends Controller
         return view('checkout.index', [
             'carts' => $carts,
             'delivery_addresses' => $delivery_addresses,
-            'coupons_used_by_user' => $coupons,
+            //'coupons_used_by_user' => $coupons,
             'weight' => $weight
         ]);
     }
