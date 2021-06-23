@@ -1,4 +1,4 @@
-@extends('layouts.main')
+cu@extends('layouts.main')
 
 @section('title', 'Checkout')
 
@@ -392,8 +392,6 @@ var deliveryFee = 0;
       });
    })
 
-<<<<<<< HEAD
-
    $(document).on('click', '#btn-use-voucher', function (e) { 
      e.preventDefault()
      const voucher = $('#input-code-voucher').val()
@@ -472,7 +470,7 @@ var deliveryFee = 0;
    //   function convertRupiah(number) { 
    //       return (number/1000).toFixed(3)
    //   }
-=======
+
    $('#delivery_address_id').on('change', function(){
       var addressText = $(this).find(":selected", this).text()
       $.ajax({
@@ -524,6 +522,5 @@ var deliveryFee = 0;
       rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
       return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
    }
->>>>>>> 1f85b3c341674ca6ddc7d689ab864a361a1a4786
 </script>
 @endsection
