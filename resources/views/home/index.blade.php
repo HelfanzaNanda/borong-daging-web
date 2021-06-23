@@ -75,14 +75,24 @@
               <a href="{{url('/product/'.\Str::slug($featured_product['name'].'-'.$featured_product['id']))}}" class="product-img">
                 <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$featured_product['media']['id'].'/'.$featured_product['media']['file_name'] }}" alt="">
                 <div class="product-absolute-options">
-                  <span class="offer-badge-1">6% off</span>
+				@if ($featured_product['discount_price'] != $featured_product['price'])
+				@php
+					$discount = $featured_product['price'] - $featured_product['discount_price'];
+					$percent = ($discount / $featured_product['price']) * 100;
+				@endphp
+					<span class="offer-badge-1">{{ $percent }}% off</span>
+				@endif
                   <span class="like-icon" title="wishlist"></span>
                 </div>
               </a>
               <div class="product-text-dt">
                 <p>Available<span>(In Stock)</span></p>
                 <h4>{{$featured_product['name']}}</h4>
-                <div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
+				@if ($featured_product['discount_price'] == $featured_product['price'])
+					<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}}</span></div>	
+				@else
+                	<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
+				@endif
               </div>
             </div>
           </div>
@@ -132,9 +142,13 @@
         </div>
       </div>
       <div class="col-md-12">
-        <a href="#" class="code-offer-item">
-        <img src="{{ asset('assets/images/best-offers/offer-4.jpg') }}" alt="">
-        </a>
+		<a href="#" class="code-offer-item">
+			<img src="{{ env('IMAGE_URL'). '/storage/app/public/' . $coupon['image_id']. '/' . $coupon['filename'] }}" alt=""
+			style="height: 150px; object-position: center; object-fit: cover">	  
+		</a>	  
+		  {{-- <a href="#" class="code-offer-item">
+			<img src="{{ asset('assets/images/best-offers/offer-4.jpg') }}" alt="">	  
+		</a> --}}
       </div>
     </div>
   </div>
@@ -192,14 +206,24 @@
               <a href="{{url('/product/'.\Str::slug($featured_product['name'].'-'.$featured_product['id']))}}" class="product-img">
                 <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$featured_product['media']['id'].'/'.$featured_product['media']['file_name'] }}" alt="">
                 <div class="product-absolute-options">
-                  <span class="offer-badge-1">6% off</span>
+					@if ($featured_product['discount_price'] != $featured_product['price'])
+					@php
+						$discount = $featured_product['price'] - $featured_product['discount_price'];
+						$percent = ($discount / $featured_product['price']) * 100;
+					@endphp
+						<span class="offer-badge-1">{{ $percent }}% off</span>
+					@endif
                   <span class="like-icon" title="wishlist"></span>
                 </div>
               </a>
               <div class="product-text-dt">
                 <p>Available<span>(In Stock)</span></p>
                 <h4>{{$featured_product['name']}}</h4>
-                <div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
+				@if ($featured_product['discount_price'] == $featured_product['price'])
+					<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}}</span></div>	
+				@else
+                	<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
+				@endif
               </div>
             </div>
           </div>
@@ -220,12 +244,16 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
-        <a href="#" class="best-offer-item">
-        <img src="{{ asset('assets/images/best-offers/offer-1.jpg') }}" alt="">
-        </a>
-      </div>
-      <div class="col-lg-4 col-md-6">
+
+	  @foreach ($result_coupons as $item)
+		<div class="col-lg-4 col-md-6">
+			<a href="#" class="best-offer-item">
+				<img src="{{ env('IMAGE_URL'). '/storage/app/public/' . $item['image_id']. '/' . $item['filename'] }}" alt="">
+			</a>
+		</div>
+	  @endforeach
+      
+      {{-- <div class="col-lg-4 col-md-6">
         <a href="#" class="best-offer-item">
         <img src="{{ asset('assets/images/best-offers/offer-2.jpg') }}" alt="">
         </a>
@@ -237,7 +265,7 @@
             <div class="product_countdown-timer offer-counter-text" data-countdown="2021/01/30"></div>
           </div>
         </a>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>
@@ -261,14 +289,24 @@
               <a href="{{url('/product/'.\Str::slug($featured_product['name'].'-'.$featured_product['id']))}}" class="product-img">
                 <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$featured_product['media']['id'].'/'.$featured_product['media']['file_name'] }}" alt="">
                 <div class="product-absolute-options">
-                  <span class="offer-badge-1">6% off</span>
+					@if ($featured_product['discount_price'] != $featured_product['price'])
+					@php
+						$discount = $featured_product['price'] - $featured_product['discount_price'];
+						$percent = ($discount / $featured_product['price']) * 100;
+					@endphp
+						<span class="offer-badge-1">{{ $percent }}% off</span>
+					@endif
                   <span class="like-icon" title="wishlist"></span>
                 </div>
               </a>
               <div class="product-text-dt">
                 <p>Available<span>(In Stock)</span></p>
                 <h4>{{$featured_product['name']}}</h4>
-                <div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
+                @if ($featured_product['discount_price'] == $featured_product['price'])
+					<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}}</span></div>	
+				@else
+                	<div class="product-price">{{'Rp '. number_format(floatval($featured_product['discount_price']))}} <span>{{'Rp '. number_format(floatval($featured_product['price']))}}</span></div>
+				@endif
               </div>
             </div>
           </div>

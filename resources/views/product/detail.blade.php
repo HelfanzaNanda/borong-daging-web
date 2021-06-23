@@ -82,7 +82,7 @@
                                  </li>
                               </ul>
                            </div>
-                           <p class="pp-descp">{!! $product['description'] !!}</p>
+                           {{-- <p class="pp-descp">{!! $product['description'] !!}</p> --}}
                            <div class="product-group-dt">
                               <ul>
                                  <li>
@@ -142,7 +142,7 @@
                      <div class="pdct-dts-1">
                         <div class="pdct-dt-step">
                            <h4>Description</h4>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere nunc in condimentum maximus. Integer interdum sem sollicitudin, porttitor felis in, mollis quam. Nunc gravida erat eu arcu interdum eleifend. Cras tortor velit, dignissim sit amet hendrerit sed, ultricies eget est. Donec eget urna sed metus dignissim cursus.</p>
+                           <p>{!! $product['description'] !!}</p>
                         </div>
                         <div class="pdct-dt-step">
                            <h4>Benefits</h4>
