@@ -144,7 +144,7 @@
                            <h4>Description</h4>
                            <p>{!! $product['description'] !!}</p>
                         </div>
-                        <div class="pdct-dt-step">
+{{--                         <div class="pdct-dt-step">
                            <h4>Benefits</h4>
                            <div class="product_attr">
                               Aliquam nec nulla accumsan, accumsan nisl in, rhoncus sapien.<br>
@@ -169,7 +169,7 @@
                         <div class="pdct-dt-step">
                            <h4>Disclaimer</h4>
                            <p>Phasellus efficitur eu ligula consequat ornare. Nam et nisl eget magna aliquam consectetur. Aliquam quis tristique lacus. Donec eget nibh et quam maximus rutrum eget ut ipsum. Nam fringilla metus id dui sollicitudin, sit amet maximus sapien malesuada.</p>
-                        </div>
+                        </div> --}}
                      </div>
                   </div>
                </div>

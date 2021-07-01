@@ -78,7 +78,7 @@
 					@if ($featured_product['discount_price'] != $featured_product['price'])
 					@php
 						$discount = $featured_product['price'] - $featured_product['discount_price'];
-						$percent = ($discount / $featured_product['price']) * 100;
+						$percent = number_format(($discount / $featured_product['price']) * 100);
 					@endphp
 						<span class="offer-badge-1">{{ $percent }}% off</span>
 					@endif	
@@ -206,7 +206,7 @@
 					@if ($featured_product['discount_price'] != $featured_product['price'])
 					@php
 						$discount = $featured_product['price'] - $featured_product['discount_price'];
-						$percent = ($discount / $featured_product['price']) * 100;
+						$percent = number_format(($discount / $featured_product['price']) * 100);
 					@endphp
 						<span class="offer-badge-1">{{ $percent }}% off</span>
 					@endif
@@ -288,7 +288,7 @@
 					@if ($featured_product['discount_price'] != $featured_product['price'])
 					@php
 						$discount = $featured_product['price'] - $featured_product['discount_price'];
-						$percent = ($discount / $featured_product['price']) * 100;
+						$percent = number_format(($discount / $featured_product['price']) * 100);
 					@endphp
 						<span class="offer-badge-1">{{ $percent }}% off</span>
 					@endif
