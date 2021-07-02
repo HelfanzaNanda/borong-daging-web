@@ -2,6 +2,17 @@
 
 @section('title', 'Customer')
 
+@section('style')
+<style type="text/css">
+  .category {
+     position:relative;
+     display: inline-block;
+     float:left;
+     padding:10px;
+  }
+</style>
+@endsection
+
 @section('slider')
 <div class="main-banner-slider">
   <div class="container">
@@ -14,7 +25,7 @@
                   <div class="offer-item">
                     <div class="offer-item-img">
                       <div class="gambo-overlay"></div>
-                      <img style="height: 205px; object-fit: {{ $slide->image_fit }}"
+                      <img style="height: 350px; object-fit: {{ $slide->image_fit }}"
                       src="{{ env('IMAGE_URL'). '/storage/app/public/' . $slide->image->id. '/' . $slide->image->file_name }}">
                     </div>
                     <div class="offer-text-dt">
@@ -114,17 +125,17 @@
         </div>
       </div>
       <div class="col-md-12">
-        <div class="owl-carousel cate-slider owl-theme">
-          @foreach($categories as $category)
-            <div class="item">
-              <a href="{{url('/category/'.\Str::slug($category['name'].'-'.$category['id']))}}" class="category-item">
-                <div class="cate-img">
-                  <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$category['media']['id'].'/'.$category['media']['file_name'] }}" alt="">
-                </div>
-                <h4>{{$category['name']}}</h4>
-              </a>
-            </div>
-          @endforeach
+        <div class="row">
+        @foreach($categories as $category)
+        <div class="col-md-3">
+          <div align="center" class="category">
+            <a href="{{url('/category/'.\Str::slug($category['name'].'-'.$category['id']))}}" class="category-item">
+               <img src="{{ env('IMAGE_URL').'/storage/app/public/'.$category['media']['id'].'/'.$category['media']['file_name'] }}" alt="" height="200px">
+              <h4>{{$category['name']}}</h4>
+            </a>
+          </div>
+        </div>
+        @endforeach
         </div>
       </div>
     </div>
@@ -142,9 +153,9 @@
         </div>
       </div>
       <div class="col-md-12">
-        <a href="#" class="code-offer-item">
+        <a href="#">
 			<img src="{{ env('IMAGE_URL'). '/storage/app/public/' . $coupon['image_id']. '/' . $coupon['filename'] }}" alt=""
-			style="height: 150px; object-position: center; object-fit: cover">	  
+			style="height: 200px;">	  
 		</a>	
       </div>
     </div>
@@ -159,7 +170,7 @@
             <span>Untuk Kamu</span>
             <h2>Sajian Masakan</h2>
           </div>
-          <a href="#" class="see-more-btn">Lihat Semua</a>
+          <a href="#" class="see-more-btn">{{-- Lihat Semua --}}</a>
         </div>
       </div>
       <div class="col-md-12">
@@ -192,7 +203,7 @@
             <span>Untuk Kamu</span>
             <h2>Best Seller!</h2>
           </div>
-          <a href="#" class="see-more-btn">Lihat Semua</a>
+          <a href="#" class="see-more-btn">{{-- Lihat Semua --}}</a>
         </div>
       </div>
       <div class="col-md-12">
@@ -274,7 +285,7 @@
             <span>Untuk Kamu</span>
             <h2>Produk Yang Baru Ditambahkan</h2>
           </div>
-          <a href="#" class="see-more-btn">Lihat Semua</a>
+          <a href="#" class="see-more-btn">{{-- Lihat Semua --}}</a>
         </div>
       </div>
       <div class="col-md-12">

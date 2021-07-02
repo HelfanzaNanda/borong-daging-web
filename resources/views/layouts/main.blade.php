@@ -28,7 +28,7 @@
   {{-- mapbox --}}
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css">
- 
+  @yield('style')
 </head>
 <script type="text/javascript">
   let BASE_URL = '{{env('APP_URL')}}';
